@@ -1,5 +1,5 @@
+import os
 import pandas as pd
-import os #biblioteka do pracy z systemem plików
 from data.exceptions import InvalidDataError
 
 def load_dataset(file_path):

@@ -1,8 +1,11 @@
+
+import os #biblioteka do pracy z systemem plików
 from data.loader import load_dataset
-from data.preprocessing import fill_na_with_value
 from data.validator import validate_dataset
+from data.preprocessing import fill_na_with_value
 from data.exceptions import InvalidDataError
 from analysis.statistics import summary_stats
+from analysis.statistics import grouped_mean_summary_auto
 
 def test_pipeline():
 
@@ -23,27 +26,21 @@ def test_pipeline():
     POSITIVE_COLUMNS = [
         'Age', 'Sleep Duration', 'Quality of Sleep',
         'Physical Activity Level', 'Stress Level',
-        'Heart Rate', 'Daily Steps'
-    ]
+        'Heart Rate', 'Daily Steps']
 
     try:
-        df = load_dataset()
-        df = fill_na_with_value(df, ['Sleep Disorder'], 'None')
-        validate_dataset(df)
-        print("Pipeline działa – dane poprawne")
+        df = load_dataset(DATA_PATH)  # wczytanie CSV
+        df = fill_na_with_value(df, ['Sleep Disorder'], 'None')  # brakujące Sleep Disorder -> 'None'
+        validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS)  # walidacja
+
+        # przykład użycia grouped_mean_summary_auto
+        # podział osób na 4 grupy według wieku i średnia długość snu
+        #automatyczne wypisywanie
+        grouped_mean_summary_auto(df, group_col='Physical Activity Level', target_col='Quality of Sleep', n_bins=4)
+
     except InvalidDataError as e:
         print(f"Błąd w danych: {e}")
 
-    columns_to_analyze = ['Age', 'Sleep Duration', 'Daily Steps']
-    try:
-        stats = summary_stats(df, columns_to_analyze)
-        print("Podstawowe statystyki:")
-        for col, values in stats.items():
-            print(f"\n{col}:")
-            for k, v in values.items():
-                print(f"  {k}: {v:.2f}")
-    except InvalidDataError as e:
-        print(f"Błąd analizy statystycznej: {e}")
 
 if __name__ == "__main__":
     test_pipeline()
