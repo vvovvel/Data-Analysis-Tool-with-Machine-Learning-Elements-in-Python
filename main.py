@@ -1,20 +1,20 @@
+import os
+import pandas as pd
+from sklearn.metrics import accuracy_score
 
-import os #biblioteka do pracy z systemem plików
 from data.loader import load_dataset
 from data.validator import validate_dataset
 from data.preprocessing import fill_na_with_value
 from data.exceptions import InvalidDataError
-from analysis.statistics import summary_stats
-from analysis.statistics import grouped_mean_summary_auto
+
+from ml.LinearRegressionModel import LinearRegressionModel
+from ml.KNNClasifierModel import KNNClassifierModel
+from ml.KMeansClusteringModel import KMeansClusteringModel
+
 
 def test_pipeline():
-
     DATA_PATH = os.path.join('data', 'Sleep_health_and_lifestyle_dataset.csv')
-    # oznacza to ścieżkę, ale zapisaną zarówno w Linux/iOS/Windows która łączy folder data z plikiem Sleep_health..
-    # to gwarantuje, że ścieżka do pliku jest poprawna względem katalogu głównego projektu
-    # DATA_PATH z wielkich liter zgodnie z PEP 8, bo jest const
 
-    # Lista kolumn, które powinny być w dataset
     REQUIRED_COLUMNS = [
         'Person ID', 'Gender', 'Age', 'Occupation', 'Sleep Duration',
         'Quality of Sleep', 'Physical Activity Level', 'Stress Level',
@@ -22,26 +22,69 @@ def test_pipeline():
         'Sleep Disorder'
     ]
 
-    # Kolumny, które muszą mieć tylko wartości dodatnie
     POSITIVE_COLUMNS = [
         'Age', 'Sleep Duration', 'Quality of Sleep',
         'Physical Activity Level', 'Stress Level',
-        'Heart Rate', 'Daily Steps']
+        'Heart Rate', 'Daily Steps'
+    ]
+
+    SELECTED_FEATURES = ['Age']
+    TARGET_COLUMN = 'Sleep Disorder'
 
     try:
-        df = load_dataset(DATA_PATH)  # wczytanie CSV
-        df = fill_na_with_value(df, ['Sleep Disorder'], 'None')  # brakujące Sleep Disorder -> 'None'
-        validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS)  # walidacja
+        df = load_dataset(DATA_PATH)
+        df = fill_na_with_value(df, ['Sleep Disorder'], 'None')
+        validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
 
-        # przykład użycia grouped_mean_summary_auto
-        # podział osób na 4 grupy według wieku i średnia długość snu
-        #automatyczne wypisywanie
-        grouped_mean_summary_auto(df, group_col='Physical Activity Level', target_col='Quality of Sleep', n_bins=4)
+        # --- ETAP 2: Model Regresji Liniowej ---
+        print("\n=== Klasyfikacja ===")
+
+        clasifier_model = KNNClassifierModel(
+            df=df,
+            target_col = TARGET_COLUMN,
+            feature_cols = SELECTED_FEATURES,
+            n_neighbors = 5,
+            test_size = 0.2
+        )
+
+        accuracy_score = clasifier_model.evaluate()
+        print(f'\nAccuracy: {accuracy_score}')
+
+        # # 1. Model z podziałem 80/20 (test_size=0.2)
+        # lin_model_20 = LinearRegressionModel(
+        #     df=df,
+        #     target_col=TARGET_COLUMN,
+        #     feature_cols=SELECTED_FEATURES,
+        #     test_size=0.2
+        # )
+        # mse_20 = lin_model_20.evaluate()
+        # print(f"MSE (test_size 20%): {mse_20:.4f}")
+        #
+        # # 2. Model z podziałem 70/30 (test_size=0.3)
+        # lin_model_30 = LinearRegressionModel(
+        #     df=df,
+        #     target_col=TARGET_COLUMN,
+        #     feature_cols=SELECTED_FEATURES,
+        #     test_size=0.3
+        # )
+        # mse_30 = lin_model_30.evaluate()
+        # print(f"MSE (test_size 30%): {mse_30:.4f}")
+        #
+        # print("\n=== REGRESJA: Analiza Wpływu Zmiennych ===")
+        #
+        # # Analiza współczynników dla lepszego modelu (np. 80/20)
+        # analysis_summary = lin_model_20.get_analysis_summary()
+        #
+        # print(f"Analiza wpływu na {TARGET_COLUMN}:")
+        # for feature, data in analysis_summary["Współczynniki Regresji"].items():
+        #     print(f"- {feature}: Wpływ: **{data['Wpływ']}**, Współczynnik: {data['Wartość']}")
+
 
     except InvalidDataError as e:
-        print(f"Błąd w danych: {e}")
+        print(f"Błąd w danych (InvalidDataError): {e}")
+    except Exception as e:
+        print(f"Wystąpił nieoczekiwany błąd podczas działania programu: {e}")
 
 
 if __name__ == "__main__":
     test_pipeline()
-

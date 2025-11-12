@@ -1,6 +1,8 @@
 import pandas as pd
 from data.exceptions import InvalidDataError
+from utils.decorators import print_result
 
+@print_result
 def summary_stats(df: pd.DataFrame, columns: list[str]) -> dict:
     stats = {}
 
@@ -36,6 +38,7 @@ def summary_stats(df: pd.DataFrame, columns: list[str]) -> dict:
 # Przykład:
 # df['AgeGroup'] = pd.qcut(df['Age'], q=4)  # 4 grupy z równą liczbą osób
 
+@print_result
 def grouped_mean_summary_auto(
     df: pd.DataFrame,  #wkładamy data frame
     group_col: str,    #ze względu na co chcemy grupować np ze względu na wiek, grupy wiekowe 25-30, 30-40 itd
@@ -59,8 +62,27 @@ def grouped_mean_summary_auto(
 
     result = df_copy.groupby('Group')[target_col].mean().to_dict() #srednia dla każdej grupy z tych czterech
 
-    print(f"\nPodział df na równe grupy ze względu na '{group_col}' – średnia '{target_col}' dla każdej grupy:")
-    for group, avg in result.items():
-        print(f"{group} ->  {avg:.2f}")
+    # print(f"\nPodział df na równe grupy ze względu na '{group_col}' – średnia '{target_col}' dla każdej grupy:")
+    # for group, avg in result.items():
+    #     print(f"{group} ->  {avg:.2f}")
 
     return result
+
+@print_result
+def corr_matrix(df: pd.DataFrame, cols: list[str] | None = None) -> pd.DataFrame:
+
+    #jeśli argument cols nie został podany, liczmymy dla wszystkich kolumn liczbowych
+    if cols is None:
+        cols = df.columns.tolist()
+
+    # sprawdzenie poprawności kolumn
+    for col in cols:
+        if col not in df.columns:
+            raise InvalidDataError(f"Brak kolumny '{col}' w DataFrame.")
+        if not pd.api.types.is_numeric_dtype(df[col]):
+            raise InvalidDataError(f"Kolumna '{col}' nie zawiera wartości liczbowych.")
+
+    # obliczenie macierzy korelacji
+    corr = df[cols].corr()
+
+    return corr
