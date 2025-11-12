@@ -1,27 +1,19 @@
 import pandas as pd
 from data.exceptions import InvalidDataError
-from utils.decorators import print_result
 
-@print_result
-def summary_stats(df: pd.DataFrame, columns: list[str]) -> dict:
-    stats = {}
+def summary_stats(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
 
     for col in columns:
         if col not in df.columns:
             raise InvalidDataError(f"Kolumna '{col}' nie istnieje w DataFrame.")
-
         if not pd.api.types.is_numeric_dtype(df[col]):
             raise InvalidDataError(f"Kolumna '{col}' nie zawiera wartości liczbowych.")
 
-        stats[col] = {
-            'mean': float(df[col].mean()),
-            'median': float(df[col].median()),
-            'std': float(df[col].std()),
-            'min': float(df[col].min()),
-            'max': float(df[col].max())
-        }
+    stats_df = df[columns].describe().T
 
-    return stats
+    stats_df = stats_df.drop(columns=['count', '25%', '50%', '75%'])
+
+    return stats_df
 
 #FUNKCJA UŻYTECZNA DO KOLEJNEJ METODY
 # pd.qcut() – dzieli kolumnę numeryczną na "kwantyle" (grupy o podobnej liczbie obserwacji)
@@ -38,13 +30,13 @@ def summary_stats(df: pd.DataFrame, columns: list[str]) -> dict:
 # Przykład:
 # df['AgeGroup'] = pd.qcut(df['Age'], q=4)  # 4 grupy z równą liczbą osób
 
-@print_result
+
 def grouped_mean_summary_auto(
     df: pd.DataFrame,  #wkładamy data frame
     group_col: str,    #ze względu na co chcemy grupować np ze względu na wiek, grupy wiekowe 25-30, 30-40 itd
     target_col: str,    #co chcemy mieć w tym grupowaniu np długość snu dla każdej grupy wiekowej, ilość kroków itd
     n_bins: int = 4     #wpisujemy sobie ilość grup, którą chcemy, ale musi być z przedziału <1,10>
-) -> dict:
+) -> pd.DataFrame:
 
     if not isinstance(n_bins, int) or not (1 <= n_bins <= 10):
         raise InvalidDataError("n_bins musi być liczbą całkowitą od 1 do 10.") #liczba grup będzie wpisywana ręcznie ale musi być intem z <1,10>
@@ -60,15 +52,12 @@ def grouped_mean_summary_auto(
     df_copy['Group'] = pd.qcut(df_copy[group_col], q=n_bins, duplicates='drop')  #dzieli na cztery równe grupy, każda zawiera tyle samo osób
     #i nadaje każdemuy numerek
 
-    result = df_copy.groupby('Group')[target_col].mean().to_dict() #srednia dla każdej grupy z tych czterech
+    result_series = df_copy.groupby('Group')[target_col].mean() #srednia dla każdej grupy z tych czterech, zwraca kolumnę
+    result_df = result_series.to_frame() #zwraca dataframe
+    result_df.rename(columns={target_col: f"Średnia {target_col}"}, inplace=True) #zmiana nazw
 
-    # print(f"\nPodział df na równe grupy ze względu na '{group_col}' – średnia '{target_col}' dla każdej grupy:")
-    # for group, avg in result.items():
-    #     print(f"{group} ->  {avg:.2f}")
+    return result_df
 
-    return result
-
-@print_result
 def corr_matrix(df: pd.DataFrame, cols: list[str] | None = None) -> pd.DataFrame:
 
     #jeśli argument cols nie został podany, liczmymy dla wszystkich kolumn liczbowych
