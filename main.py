@@ -7,9 +7,9 @@ from data.exceptions import InvalidDataError
 
 from analysis import statistics as stat
 
-from ml.LinearRegressionModel import LinearRegressionModel
-from ml.KNNClasifierModel import KNNClassifierModel
-from ml.KMeansClusteringModel import KMeansClusteringModel
+from ml.RegressionModel import RegressionModel
+from ml.ClassifierModel import ClassifierModel
+from ml.ClusteringModel import ClusteringModel
 
 
 from utils.context_managers import TimeLoggerContext
@@ -62,7 +62,7 @@ def _run_regression(df, target, features):
     with TimeLoggerContext("MODEL: REGRESJA LINIOWA"):
         print("\n=== REGRESJA LINIOWA ===")
 
-        lin_model_20 = LinearRegressionModel(
+        lin_model_20 = RegressionModel(
             df=df,
             target_col=target,
             feature_cols=features,
@@ -86,7 +86,7 @@ def _run_classification(df, target, features):
     with TimeLoggerContext("MODEL: KLASYFIKACJA KNN"):
         print("\n=== KLASYFIKACJA KNN ===")
 
-        knn_model_3 = KNNClassifierModel(
+        knn_model_3 = ClassifierModel(
             df=df,
             target_col=target,
             feature_cols=features,
@@ -104,7 +104,7 @@ def _run_clustering(df, features):
     with TimeLoggerContext("MODEL: KLASTERYZACJA KMeans"):
         print("\n=== KLASTERYZACJA KMeans ===")
 
-        kmeans_model_3 = KMeansClusteringModel(
+        kmeans_model_3 = ClusteringModel(
             df=df,
             feature_cols=features,
             n_clusters=3
@@ -138,10 +138,10 @@ def test_pipeline():
 
     GROUPED_MEAN_TARGET = 'Daily Steps'
 
-    REGRESSION_FEATURES = ['Age', 'Physical Activity Level', 'Stress Level']
-    REGRESSION_TARGET = 'Sleep Duration'
+    REGRESSION_FEATURES = ['Age']
+    REGRESSION_TARGET = 'Stress Level'
 
-    CLASSIFICATION_FEATURES = ['Age', 'Quality of Sleep', 'Stress Level', 'BMI Category', 'Daily Steps']
+    CLASSIFICATION_FEATURES = ['Physical Activity Level']
     CLASSIFICATION_TARGET = 'Sleep Disorder'
 
     CLUSTERING_FEATURES = ['Age', 'Stress Level', 'Daily Steps', 'Heart Rate']
@@ -150,17 +150,20 @@ def test_pipeline():
 
         df = _perform_loading_and_prep(DATA_PATH, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
 
-        summary_stats = _run_summary_stats(df, STATS_COLUMNS)
+        # summary_stats = _run_summary_stats(df, STATS_COLUMNS)
+        #
+        # grouped_mean = _run_grouped_mean(df, GROUPED_MEAN_COL, GROUPED_MEAN_TARGET)
+        #
+        # corr_matrix = _run_correlation_matrix(df, STATS_COLUMNS)
 
-        grouped_mean = _run_grouped_mean(df, GROUPED_MEAN_COL, GROUPED_MEAN_TARGET)
+        #lin_model = _run_regression(df, REGRESSION_TARGET, REGRESSION_FEATURES)
 
-        corr_matrix = _run_correlation_matrix(df, STATS_COLUMNS)
-
-        lin_model = _run_regression(df, REGRESSION_TARGET, REGRESSION_FEATURES)
+        #lin_model.plot("regresja_age.png")
 
         knn_model = _run_classification(df, CLASSIFICATION_TARGET, CLASSIFICATION_FEATURES)
+        knn_model.plot("occupation_sleep_disorder")
 
-        kmeans_model = _run_clustering(df, CLUSTERING_FEATURES)
+        # kmeans_model = _run_clustering(df, CLUSTERING_FEATURES)
 
 
     except InvalidDataError as e:

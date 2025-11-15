@@ -1,4 +1,4 @@
-from ml.MLModel import MLModel
+from ml.BaseModel import BaseModel
 import numpy as np
 from ml.DataPreparer import DataPreparer
 
@@ -7,7 +7,7 @@ from sklearn.metrics import silhouette_score
 
 #Algorytm przesuwa "środki" klastrów (centroidy), aż każdy punkt danych będzie najbliżej swojego centroidu.
 
-class KMeansClusteringModel(MLModel):
+class ClusteringModel(BaseModel):
     X_scaled = None
     n_clusters = None
 

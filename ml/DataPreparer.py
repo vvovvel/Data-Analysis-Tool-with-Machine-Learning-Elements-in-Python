@@ -44,7 +44,7 @@ class DataPreparer:
         return X
 
     def prepare_data_regression(self, target_col, feature_cols=None, scale=False,
-                                test_size=0.2, random_state=42):
+                                test_size=0.2, random_state=42): #wynik to dataFrame bo nie skaluje
         X = self._choose_features(target_col=target_col, feature_cols=feature_cols)
         y = self.df[target_col]
 
@@ -56,12 +56,15 @@ class DataPreparer:
 
         if scale:
             scaler = StandardScaler()
-            X_train = scaler.fit_transform(X_train)
-            X_test = scaler.transform(X_test)
+            X_train_scaled = scaler.fit_transform(X_train)
+            X_test_scaled = scaler.transform(X_test)
+            # zamieniamy z powrotem na DataFrame z tymi samymi kolumnami i indeksami
+            X_train = pd.DataFrame(X_train_scaled, columns=X.columns, index=X_train.index)
+            X_test = pd.DataFrame(X_test_scaled, columns=X.columns, index=X_test.index)
 
         return X, y, X_train, X_test, y_train, y_test
 
-    def prepare_classification(self, target_col, feature_cols=None, test_size=0.2, random_state=81):
+    def prepare_classification(self, target_col, feature_cols=None, test_size=0.2, random_state=81): #zwraca DF
 
         return self.prepare_data_regression(
             target_col=target_col,
@@ -82,4 +85,5 @@ class DataPreparer:
 
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(X)
+        X_scaled = pd.DataFrame(X_scaled, columns=X.columns, index=X.index) #zamiana na DF by ujednolicić prepare
         return X_scaled

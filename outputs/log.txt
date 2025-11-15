@@ -55,3 +55,71 @@
 [START] MODEL: KLASTERYZACJA KMeans - Wed Nov 12 13:55:21 2025
 [END] MODEL: KLASTERYZACJA KMeans - Wed Nov 12 13:55:23 2025 | Trwanie: 1.4580s
 --------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:25:33 2025
+[END] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:25:33 2025 | Trwanie: 0.0146s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:25:33 2025
+[ERROR] MODEL: REGRESJA LINIOWA - TypeError: RegressionModel.__init__() got an unexpected keyword argument 'target_col'. Did you mean 'target_name'?
+[END] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:25:33 2025 | Trwanie: 0.0003s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:25:40 2025
+[END] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:25:40 2025 | Trwanie: 0.0046s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:25:40 2025
+[ERROR] MODEL: REGRESJA LINIOWA - TypeError: RegressionModel.__init__() got an unexpected keyword argument 'target_col'. Did you mean 'target_name'?
+[END] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:25:40 2025 | Trwanie: 0.0003s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:30:05 2025
+[END] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:30:05 2025 | Trwanie: 0.0048s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:30:05 2025
+[END] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:30:05 2025 | Trwanie: 0.0179s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 15 22:45:00 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 15 22:45:00 2025 | Trwanie: 0.0138s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 15 22:45:00 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 15 22:45:00 2025 | Trwanie: 0.0139s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 15 22:47:04 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 15 22:47:04 2025 | Trwanie: 0.0043s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 15 22:47:04 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 15 22:47:04 2025 | Trwanie: 0.0043s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 15 23:57:46 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 15 23:57:46 2025 | Trwanie: 0.0044s
+--------------------------------------------------
+[START] MODEL: KLASYFIKACJA KNN - Sat Nov 15 23:57:46 2025
+[END] MODEL: KLASYFIKACJA KNN - Sat Nov 15 23:57:46 2025 | Trwanie: 0.0159s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:00:12 2025
+[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:00:12 2025 | Trwanie: 0.0044s
+--------------------------------------------------
+[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:00:12 2025
+[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:00:12 2025 | Trwanie: 0.0133s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:00:23 2025
+[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:00:23 2025 | Trwanie: 0.0043s
+--------------------------------------------------
+[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:00:23 2025
+[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:00:23 2025 | Trwanie: 0.0088s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:02:52 2025
+[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:02:52 2025 | Trwanie: 0.0044s
+--------------------------------------------------
+[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:02:52 2025
+[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:02:52 2025 | Trwanie: 0.0083s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:02:57 2025
+[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:02:57 2025 | Trwanie: 0.0056s
+--------------------------------------------------
+[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:02:57 2025
+[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:02:57 2025 | Trwanie: 0.0108s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:05:06 2025
+[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:05:06 2025 | Trwanie: 0.0042s
+--------------------------------------------------
+[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:05:06 2025
+[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:05:06 2025 | Trwanie: 0.0074s
+--------------------------------------------------

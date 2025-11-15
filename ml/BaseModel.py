@@ -1,7 +1,6 @@
 import pandas as pd
-import numpy as np
 
-class MLModel:
+class BaseModel:
     def __init__(self, model):
         self.model = model
 
