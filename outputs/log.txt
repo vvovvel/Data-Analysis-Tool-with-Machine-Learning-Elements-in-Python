@@ -123,3 +123,9 @@
 [START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:05:06 2025
 [END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:05:06 2025 | Trwanie: 0.0074s
 --------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Tue Nov 18 16:01:12 2025
+[END] ŁADOWANIE i PREPROCESSING - Tue Nov 18 16:01:12 2025 | Trwanie: 0.0140s
+--------------------------------------------------
+[START] MODEL: KLASTERYZACJA KMeans - Tue Nov 18 16:01:12 2025
+[END] MODEL: KLASTERYZACJA KMeans - Tue Nov 18 16:01:14 2025 | Trwanie: 2.3353s
+--------------------------------------------------

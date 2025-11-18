@@ -91,9 +91,10 @@ class ClassifierModel(BaseModel):
             # --- Rysowanie ---
             plt.figure(figsize=(10, 6))
 
-            cmap = plt.get_cmap('tab10') #pobiera colormapę z matplotlib -> dobrze rozróznialne 10 kolorów
-            class_to_color = {cls: cmap(i % 10) for i, cls in enumerate(classes)} #dla każdej z naszych klas mamy jeden z tych dziesięciu kolorów
-            # ale niestety jeśli klas jest więcej to będą się powtarzać. jesteśmy gotowi na to poświęcenie
+            #przyporządkowanie kolorów do klas
+            n_unique_classes = len(classes) #ilość unikalnych klas
+            cmap = plt.get_cmap('Spectral', n_unique_classes) #pobranie dokładnie tylu kolorów ile trzeba
+            class_to_color = {cls: cmap(i) for i, cls in enumerate(classes)} #przypisanie koloru do klasy
 
             # Rysujemy prawdziwe etykiety (filled)
             for cls in classes:

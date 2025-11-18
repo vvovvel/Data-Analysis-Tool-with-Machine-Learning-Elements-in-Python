@@ -144,7 +144,7 @@ def test_pipeline():
     CLASSIFICATION_FEATURES = ['Physical Activity Level']
     CLASSIFICATION_TARGET = 'Sleep Disorder'
 
-    CLUSTERING_FEATURES = ['Age', 'Stress Level', 'Daily Steps', 'Heart Rate']
+    CLUSTERING_FEATURES = ['Age', 'Stress Level']
 
     try:
 
@@ -160,10 +160,11 @@ def test_pipeline():
 
         #lin_model.plot("regresja_age.png")
 
-        knn_model = _run_classification(df, CLASSIFICATION_TARGET, CLASSIFICATION_FEATURES)
-        knn_model.plot("occupation_sleep_disorder")
+        #knn_model = _run_classification(df, CLASSIFICATION_TARGET, CLASSIFICATION_FEATURES)
+        #knn_model.plot("occupation_sleep_disorder")
 
-        # kmeans_model = _run_clustering(df, CLUSTERING_FEATURES)
+        kmeans_model = _run_clustering(df, CLUSTERING_FEATURES)
+        kmeans_model.plot()
 
 
     except InvalidDataError as e:

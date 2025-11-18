@@ -1,6 +1,9 @@
 from ml.BaseModel import BaseModel
-import numpy as np
 from ml.DataPreparer import DataPreparer
+
+import os
+import numpy as np
+import matplotlib.pyplot as plt
 
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
@@ -9,6 +12,7 @@ from sklearn.metrics import silhouette_score
 
 class ClusteringModel(BaseModel):
     X_scaled = None
+    feature_cols = None
     n_clusters = None
 
     def __init__(self, df=None, feature_cols=None, n_clusters=3, random_state=42):
@@ -16,14 +20,15 @@ class ClusteringModel(BaseModel):
         super().__init__(KMeans(n_clusters=n_clusters, random_state=random_state)) #model importowany z sklearn
         self.n_clusters = n_clusters #liczba klastrów tzn grup
 
-        # 2. Logika przygotowania i trenowania
         if df is not None:
             preparer = DataPreparer(df, id_col='Person ID')
 
-            X_scaled = preparer.prepare_clustering(feature_cols=feature_cols) #przygotowywanie danych pod KMeans
+            X_scaled = preparer.prepare_clustering(feature_cols=feature_cols)  # przygotowywanie danych pod KMeans
             self.X_scaled = X_scaled
+            self.feature_cols = X_scaled.columns.tolist()  # Zapis nazw kolumn cech
 
-            self.train(X_scaled) #trenowanie modelu
+            self.train(X_scaled)  # trenowanie model
+
 
     def evaluate(self): #shilhouette_score - współczynnik sylwetkowy -> mierzy jakość separacji i spójność klastrów
         #ocenia jak bardzo punkt jest podobny do swojego klastra i jak bardzo różny jest od innych klastrów. wartości od -1 do 1
@@ -44,3 +49,79 @@ class ClusteringModel(BaseModel):
 
         except Exception as e:
             return {"Error": f"Nie można policzyć silhouette_score: {e}"}
+
+    def plot(self, filename: str = "clustering_plot.png"):
+
+        # 1. Walidacja danych i cech
+        # Do narysowania modelu musimy uprzednio zainicjować i wytrenować model
+        if self.X_scaled is None:
+            print("Model musi zostać zainicjowany z danymi.")
+            return
+
+        if self.feature_cols is None:
+            print("Brak nazw cech (feature_cols).")
+            return
+
+        # Walidacja: wymagamy dokładnie dwóch cech
+        if len(self.feature_cols) != 2:
+            print(f"Wizualizacja wymaga dokładnie 2 cech.")
+            return
+
+        try:
+            os.makedirs('outputs', exist_ok=True)  # Zabezpieczenie folderu
+
+            # 2. Pobieranie danych i nazw z atrybutów self
+            feature_name_1 = self.feature_cols[0]  # Pierwsza cecha
+            feature_name_2 = self.feature_cols[1]  # Druga cecha
+
+            # Dane do rysowania
+            X_data = self.X_scaled.values
+            labels = self.predict(self.X_scaled) #trenowanie modelu
+            n_unique_clusters = len(np.unique(labels)) #zazwyczaj n_unique_clusters == n_clusters ale gdy model jest mały lub niesymetryczny może być <
+
+            # Wymagane są klastry do narysowania
+            if n_unique_clusters < 1:
+                print("Nie znaleziono klastrów do wizualizacji.")
+                return
+
+            # --- Rysowanie ---
+            plt.figure(figsize=(10, 6))
+
+
+            cmap = plt.get_cmap('Spectral', n_unique_clusters)  # Colormapa dla klastrów
+
+            # Wykres rozrzutu (Punkty Danych)
+            for i in range(n_unique_clusters): #rysujemy dla każdego klastra punkty, które się w nim znajdują
+                mask = (labels == i) #maska, która da nam tylko punkty, które są w danym klastrze
+                plt.scatter(X_data[mask, 0], X_data[mask, 1], #rysowanie każdego punktu z klastra
+                            label=f'Klaster {i}',
+                            color=cmap(i), #dobieranie odpowiedniego koloru
+                            alpha=0.6,
+                            edgecolors='w', #obwódki
+                            linewidths=0.5)
+
+
+            if self.model.cluster_centers_.any(): #centroidy, środki klastrów
+                centers_plot = self.model.cluster_centers_ #atrybut KMeans w postaci tablicy Numpy rozmiaru n_clusters x 2 (bo n_features = 2) w wypelniona współrzędnymi centroidów
+
+                plt.scatter(centers_plot[:, 0], centers_plot[:, 1], #rysujemy centroidy
+                            marker='X', s=200,
+                            color='black',
+                            label='Centroidy',
+                            edgecolors='k',
+                            linewidths=1.5)
+
+            plt.title(f'Wizualizacja Klasteryzacji K-Means: {feature_name_1} vs {feature_name_2}', fontsize=14)
+            plt.xlabel(feature_name_1, fontsize=12)
+            plt.ylabel(feature_name_2, fontsize=12)
+            plt.legend(loc='best') #lokalizacja dynamiczna, w najlepszym możliwym miejscu
+            plt.grid(True, linestyle='--', alpha=0.7)
+
+
+            plot_path = os.path.join('outputs', filename)
+            plt.savefig(plot_path)
+            plt.close()
+            print(f"Wykres klasteryzacji zapisany: {plot_path}")
+
+        except Exception as e:
+            print(f"Błąd podczas generowania wykresu: {e}")
