@@ -1,7 +1,5 @@
 from ml.BaseModel import BaseModel
 from ml.DataPreparer import DataPreparer
-import matplotlib.pyplot as plt
-import os
 
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
@@ -79,59 +77,45 @@ class RegressionModel(BaseModel):
 
         return summary
 
-    def plot(self, filename: str = "regresja_plot.png"):
+    # specyficzne rysowanie wykresu
 
-        # 1. Walidacja danych i cech
-        # Do narysowania modelu musimy uprzednio zainicjować i wytrenować model
+    def _draw_plot_content(self, plt):
+
         if self.X_test is None or self.y_test is None:
-            print("Model musi zostać zainicjowany")
-            return
+            raise ValueError("Model musi zostać zainicjowany.")
 
         if self.feature_cols is None:
-            print("Brak nazw cech (feature_cols).")
-            return
+            raise ValueError("Brak nazw cech (feature_cols).")
 
         if len(self.feature_cols) != 1:
-            print(f"Zbyt duża ilośc cech")
-            return
+            raise ValueError(f"Wizualizacja wymaga dokładnie 1 cechy. Znaleziono: {len(self.feature_cols)}.")
 
-        try:
-            os.makedirs('outputs', exist_ok=True)  # Zabezpieczenie folderu
+        # 2. Pobieranie danych i nazw z atrybutów self
+        feature_name = self.feature_cols[0]  # JEDYNA cecha
+        target_name = self.target_col  # Nazwa Targetu
 
-            # 2. Pobieranie danych i nazw z atrybutów self
-            feature_name = self.feature_cols[0]  # JEDYNA cecha
-            target_name = self.target_col  # Nazwa Targetu
+        # 3. Przygotowanie danych osi
+        x_data = self.X_test[feature_name].values.flatten()
+        y_test_data = self.y_test.values.flatten()
 
-            # 3. Przygotowanie danych osi
-            # Wybór JEDYNEJ kolumny z X_test i konwersja do wektora 1D
-            x_data = self.X_test[feature_name].values.flatten()
-            y_test_data = self.y_test.values.flatten()
+        # 4. Obliczenie predykcji linii regresji
+        y_pred = self.predict(self.X_test).flatten()
 
-            # 4. Obliczenie predykcji linii regresji
-            y_pred = self.predict(self.X_test).flatten()
+        # --- Rysowanie ---
+        # Wykres rozrzutu (Punkty Danych)
+        plt.scatter(x_data, y_test_data, color='#3498db', alpha=0.6, label='Dane Testowe')
 
-            # --- Rysowanie ---
-            plt.figure(figsize=(10, 6))
+        # Linia regresji (Predykcja)
+        sort_idx = x_data.argsort()
+        plt.plot(x_data[sort_idx], y_pred[sort_idx], color='#e74c3c', linewidth=3, label='Linia Regresji')
 
-            # Wykres rozrzutu (Punkty Danych)
-            plt.scatter(x_data, y_test_data, color='#3498db', alpha=0.6, label='Dane Testowe')
+        plt.title(f'Regresja Liniowa: {target_name} vs {feature_name}', fontsize=14)
+        plt.xlabel(feature_name, fontsize=12)
+        plt.ylabel(target_name, fontsize=12)
+        plt.legend()
 
-            # Linia regresji (Predykcja)
-            # Musimy posortować dane X, aby linia regresji była narysowana poprawnie
-            sort_idx = x_data.argsort()
-            plt.plot(x_data[sort_idx], y_pred[sort_idx], color='#e74c3c', linewidth=3, label='Linia Regresji')
 
-            plt.title(f'Regresja Liniowa: {target_name} vs {feature_name}', fontsize=14)
-            plt.xlabel(feature_name, fontsize=12)
-            plt.ylabel(target_name, fontsize=12)
-            plt.legend()
-            plt.grid(True, linestyle='--', alpha=0.7)
+    #wywołanie metody bazowej, która zawiera w sobie powtarzające się u wszystkich modeli fragmetny kodu
 
-            # --- Zapis ---
-            plot_path = os.path.join('outputs', filename)
-            plt.savefig(plot_path)
-            plt.close()
-            print(f"Wykres regresji zapisany: {plot_path}")
-
-        except Exception as e:
-            print(f"Błąd podczas generowania wykresu: {e}")
+    def plot(self, filename: str = "regression_plot.png"):
+        super().plot(filename=filename)

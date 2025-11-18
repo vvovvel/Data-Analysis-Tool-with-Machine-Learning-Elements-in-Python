@@ -1,7 +1,4 @@
-import os
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 from ml.BaseModel import BaseModel
 from ml.DataPreparer import DataPreparer
@@ -54,92 +51,86 @@ class ClassifierModel(BaseModel):
         except Exception as e:
             return {"Error": f"Nie można policzyć Accuracy: {e}"}
 
-    def plot(self, filename: str = "classifier_plot.png"):
+    #specyficzne rysowanie wykresu
+
+    def _draw_plot_content(self, plt):
 
         if self.X_test is None or self.y_test is None:
-            print("Model musi zostać zainicjowany")
-            return
+            raise ValueError("Model musi zostać zainicjowany.")
 
         if self.feature_cols is None:
-            print("Brak nazw cech (feature_cols).")
-            return
+            raise ValueError("Brak nazw cech (feature_cols).")
 
         if len(self.feature_cols) != 1:
-            print(f"Zbyt duża ilośc cech")
-            return
+            raise ValueError(f"Wizualizacja wymaga dokładnie 1 cechy. Znaleziono: {len(self.feature_cols)}.")
 
-        try:
-            os.makedirs('outputs', exist_ok=True)
+        # 2. Pobieranie nazw
+        feature_name = self.feature_cols[0]
+        target_name = self.target_col
 
-            # Pobieranie nazw
-            feature_name = self.feature_cols[0]
-            target_name = self.target_col
+        # 3. Przygotowanie danych osi
+        # Wybór JEDYNEJ kolumny z X_test i konwersja do wektora 1D
+        x_data = self.X_test[feature_name].values.flatten()
+        y_test_data = np.array(self.y_test).flatten()
 
-            # 3. Przygotowanie danych osi
-            # Wybór JEDYNEJ kolumny z X_test i konwersja do wektora 1D
-            x_data = self.X_test[feature_name].values.flatten()
-            y_test_data = np.array(self.y_test).flatten()
+        # 4. Obliczenie predykcji
+        y_pred = np.array(self.predict(self.X_test)).flatten()
 
-            # 4. Obliczenie predykcji
-            y_pred = np.array(self.predict(self.X_test)).flatten()
+        # Mapowanie klas (np. ['low','medium','high'] -> [0,1,2])
+        classes = np.unique(
+            np.concatenate([y_test_data, y_pred]))  # połączenie danych testowych i predykowanych w unikalny set
+        class_to_num = {cls: i for i, cls in enumerate(
+            classes)}  # słownik -> dla każdej unikalnej wartości z classes nadaje jakąś liczbę naturalną
+        num_to_class = {i: cls for cls, i in
+                        class_to_num.items()}  # odwrotne mapowanie: każda liczba daje wartość np string
 
-            # Mapowanie klas (np. ['low','medium','high'] -> [0,1,2])
-            classes = np.unique(np.concatenate([y_test_data, y_pred])) #połączenie danych testowych i predykowanych w unikalny set
-            class_to_num = {cls: i for i, cls in enumerate(classes)} #słownik -> dla każdej unikalnej wartości z classes nadaje jakąś liczbę naturalną
-            num_to_class = {i: cls for cls, i in class_to_num.items()} #odwrotne mapowanie: każda liczba daje wartość np string
+        # --- Rysowanie ---
 
-            # --- Rysowanie ---
-            plt.figure(figsize=(10, 6))
+        # przyporządkowanie kolorów do klas
+        n_unique_classes = len(classes)  # ilość unikalnych klas
+        cmap = plt.get_cmap('Spectral', n_unique_classes)  # pobranie dokładnie tylu kolorów ile trzeba
+        class_to_color = {cls: cmap(i) for i, cls in enumerate(classes)}  # przypisanie koloru do klasy
 
-            #przyporządkowanie kolorów do klas
-            n_unique_classes = len(classes) #ilość unikalnych klas
-            cmap = plt.get_cmap('Spectral', n_unique_classes) #pobranie dokładnie tylu kolorów ile trzeba
-            class_to_color = {cls: cmap(i) for i, cls in enumerate(classes)} #przypisanie koloru do klasy
+        # Rysujemy prawdziwe etykiety (filled)
+        for cls in classes:
+            mask = (y_test_data == cls)  # maska, która tworzy dla każdej klasy takie coś
+            # [low, high, low, medium] -> [1,0,1,0] dla low. w skrocie -> true gdy ta klasa, false gdy nie ta klasa
+            plt.scatter(x_data[mask], np.full(mask.sum(), class_to_num[cls]),
+                        # wybieramy tylko wartości dla punktów z tej klasy(argumenty).
+                        # następnie tworzymy wartości y (tablica tak duża ile mamy punktów), wszystkie mają wysokość class_to_num bo taką mają wartość zamienione
+                        # na liczby naturalne igreki
+                        color=class_to_color[cls],  # wypełnone
+                        alpha=0.6,  # półprzezroczyste
+                        label=f'True: {cls}')
 
-            # Rysujemy prawdziwe etykiety (filled)
-            for cls in classes:
-                mask = (y_test_data == cls) #maska, która tworzy dla każdej klasy takie coś
-                # [low, high, low, medium] -> [1,0,1,0] dla low. w skrocie -> true gdy ta klasa, false gdy nie ta klasa
-                plt.scatter(x_data[mask], np.full(mask.sum(), class_to_num[cls]), #wybieramy tylko wartości dla punktów z tej klasy(argumenty).
-                            # następnie tworzymy wartości y (tablica tak duża ile mamy punktów), wszystkie mają wysokość class_to_num bo taką mają wartość zamienione
-                            #na liczby naturalne igreki
-                            color=class_to_color[cls], #wypełnone
-                            alpha=0.6, #półprzezroczyste
-                            label=f'True: {cls}')
+        # Rysujemy predykcje
+        for cls in classes:
+            mask_pred = (y_pred == cls)
+            if np.any(mask_pred):
+                plt.scatter(x_data[mask_pred], np.full(mask_pred.sum(), class_to_num[cls]),
+                            facecolors='none',  # puste w środku
+                            edgecolors=[class_to_color[cls]],  # mają obwódki
+                            linewidths=1.5,  # grubość krawędzi
+                            s=80,  # wielkość punktu
+                            alpha=0.9,  # prawie nie są przezroczyste
+                            label=f'Pred: {cls}')
 
-            # Rysujemy predykcje
-            for cls in classes:
-                mask_pred = (y_pred == cls)
-                if np.any(mask_pred):
-                    plt.scatter(x_data[mask_pred], np.full(mask_pred.sum(), class_to_num[cls]),
-                                facecolors='none', #puste w środku
-                                edgecolors=[class_to_color[cls]], #mają obwódki
-                                linewidths=1.5, #grubość krawędzi
-                                s=80, #wielkość punktu
-                                alpha=0.9, #prawie nie są przezroczyste
-                                label=f'Pred: {cls}')
+        # Ustawiamy oś Y na wartości kategoryczne (czytelne)
+        yticks = list(class_to_num.values())
+        yticklabels = [num_to_class[i] for i in yticks]
+        plt.yticks(yticks, yticklabels)  # pozycje etykiet są na wysokości takiej, jak wcześniej zostały ustalone w class_to_num
 
-            # Ustawiamy oś Y na wartości kategoryczne (czytelne)
-            yticks = list(class_to_num.values())
-            yticklabels = [num_to_class[i] for i in yticks]
-            plt.yticks(yticks, yticklabels) #pozycje etykiet są na wysokości takiej, jak wcześniej zostały ustalone w class_to_num
+        plt.title(f'Klasyfikacja: {target_name} vs {feature_name}', fontsize=14)
+        plt.xlabel(feature_name, fontsize=12)
+        plt.ylabel(target_name, fontsize=12)
 
-            plt.title(f'Klasyfikacja: {target_name} vs {feature_name}', fontsize=14)
-            plt.xlabel(feature_name, fontsize=12)
-            plt.ylabel(target_name, fontsize=12)
+        # Usuwamy duplikaty legendy (przy pierwszym wystąpieniu)
+        handles, labels = plt.gca().get_legend_handles_labels()
+        unique = dict(zip(labels, handles))
+        plt.legend(unique.values(), unique.keys(), loc='best', fontsize='small')
 
-            # Usuwamy duplikaty legendy (przy pierwszym wystąpieniu)
-            handles, labels = plt.gca().get_legend_handles_labels()
-            unique = dict(zip(labels, handles))
-            plt.legend(unique.values(), unique.keys(), loc='best', fontsize='small')
+    # wywołanie metody bazowej, która zawiera w sobie powtarzające się u wszystkich modeli fragmetny kodu
 
-            plt.grid(True, linestyle='--', alpha=0.7)
-
-            plot_path = os.path.join('outputs', filename)
-            plt.savefig(plot_path)
-            plt.close()
-            print(f"Wykres klasyfikacji zapisany: {plot_path}")
-
-        except Exception as e:
-            print(f"Błąd podczas generowania wykresu: {e}")
+    def plot(self, filename: str = "classifier_plot.png"):
+        super().plot(filename=filename)
 
