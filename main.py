@@ -1,125 +1,19 @@
 import os
 
-from data.loader import load_dataset
-from data.validator import validate_dataset
-from data.preprocessing import fill_na_with_value
+from data.loading_and_prep import perform_loading_and_prep
 from data.exceptions import InvalidDataError
 
-from analysis import statistics as stat
+from analysis.statistics import run_summary_stats, run_grouped_mean, run_correlation_matrix
+from analysis.plots import plot_corr_matrix, plot_data
 
-from ml.RegressionModel import RegressionModel
-from ml.ClassifierModel import ClassifierModel
-from ml.ClusteringModel import ClusteringModel
-
-
-from utils.context_managers import TimeLoggerContext
+from ml.ModelRunner import run_regression, run_classification, run_clustering
 
 
-def _perform_loading_and_prep(data_path, required_cols, positive_cols):
 
-    with TimeLoggerContext("ŁADOWANIE i PREPROCESSING"):
-        df = load_dataset(data_path)
-        df = fill_na_with_value(df, ['Sleep Disorder'], 'None')
-        validate_dataset(df, required_cols, positive_cols)
-
-    return df
-
-
-def _run_summary_stats(df, stats_columns):
-    with TimeLoggerContext("STATYSTYKI OPISOWE"):
-
-        print("\n=== STATYSTYKI: Podstawowe Statystyki Opisowe ===")
-
-        summary_stats_result = stat.summary_stats(df, stats_columns)
-
-        print(summary_stats_result.to_string(float_format='%.2f'))
-        return summary_stats_result
-
-
-def _run_grouped_mean(df, group_col, target_col):
-    with TimeLoggerContext("STATYSTYKI: Średnia Grupowa"):
-
-        print(f"\n=== STATYSTYKI: Średnia {target_col} wg {group_col} ===")
-
-        grouped_mean_result = stat.grouped_mean_summary_auto(df, group_col, target_col)
-
-        print(grouped_mean_result.to_string(float_format='%.2f'))
-        return grouped_mean_result
-
-
-def _run_correlation_matrix(df, stats_columns):
-    with TimeLoggerContext("STATYSTYKI: Macierz Korelacji"):
-        print("\n=== STATYSTYKI: Macierz Korelacji ===")
-
-        corr_matrix_result = stat.corr_matrix(df, stats_columns)
-
-        print(corr_matrix_result.to_string(float_format='%.2f'))
-        return corr_matrix_result
-
-
-def _run_regression(df, target, features):
-
-    with TimeLoggerContext("MODEL: REGRESJA LINIOWA"):
-        print("\n=== REGRESJA LINIOWA ===")
-
-        lin_model_20 = RegressionModel(
-            df=df,
-            target_col=target,
-            feature_cols=features,
-            test_size=0.2
-        )
-        mse_20 = lin_model_20.evaluate()
-        print(f"MSE (test_size 20%): {mse_20:.4f}")
-
-        print("\n Analiza Wpływu Zmiennych")
-        analysis_summary = lin_model_20.get_analysis_summary()
-
-        print(f"Analiza wpływu na {target}:")
-        for feature, data in analysis_summary["Współczynniki Regresji"].items():
-            print(f"- {feature}: Wpływ: **{data['Wpływ']}**, Współczynnik: {data['Wartość']}")
-
-    return lin_model_20
-
-
-def _run_classification(df, target, features):
-
-    with TimeLoggerContext("MODEL: KLASYFIKACJA KNN"):
-        print("\n=== KLASYFIKACJA KNN ===")
-
-        knn_model_3 = ClassifierModel(
-            df=df,
-            target_col=target,
-            feature_cols=features,
-            n_neighbors=3,
-            test_size=0.2
-        )
-        acc_3 = knn_model_3.evaluate()
-        print(f"Dokładność (n_neighbors=3): {acc_3:.4f}")
-
-    return knn_model_3
-
-
-def _run_clustering(df, features):
-
-    with TimeLoggerContext("MODEL: KLASTERYZACJA KMeans"):
-        print("\n=== KLASTERYZACJA KMeans ===")
-
-        kmeans_model_3 = ClusteringModel(
-            df=df,
-            feature_cols=features,
-            n_clusters=3
-        )
-        score = kmeans_model_3.evaluate()
-        print(f"Ocena jakości klastrów: {score}")
-
-    return kmeans_model_3
-
-
-#pipEline
-
-def test_pipeline():
+def test_pipeline_sleep():
 
     DATA_PATH = os.path.join('data', 'Sleep_health_and_lifestyle_dataset.csv')
+
     REQUIRED_COLUMNS = [
         'Person ID', 'Gender', 'Age', 'Occupation', 'Sleep Duration',
         'Quality of Sleep', 'Physical Activity Level', 'Stress Level',
@@ -132,11 +26,24 @@ def test_pipeline():
         'Heart Rate', 'Daily Steps'
     ]
 
+    ID_COL = 'Person ID'
+
+    FILL_NA_COLS = ['Sleep Disorder']
+
+    FILL_NA_VALUE = 'None'
+
     STATS_COLUMNS = ['Age', 'Sleep Duration', 'Stress Level', 'Daily Steps', 'Heart Rate']
 
-    GROUPED_MEAN_COL = 'Age'
+    GROUPED_MEAN_COL = 'Quality of Sleep'
+    GROUPED_MEAN_TARGET = 'Sleep Duration'
 
-    GROUPED_MEAN_TARGET = 'Daily Steps'
+    SCATTER_X = 'Age'
+    SCATTER_Y = 'Stress Level'  # np. 'Stress Level'
+
+    HISTOGRAM_X = 'Sleep Duration'
+
+    BOXPLOT_X = 'BMI Category'
+    BOXPLOT_Y = 'Sleep Duration'
 
     REGRESSION_FEATURES = ['Age']
     REGRESSION_TARGET = 'Stress Level'
@@ -144,26 +51,28 @@ def test_pipeline():
     CLASSIFICATION_FEATURES = ['Physical Activity Level']
     CLASSIFICATION_TARGET = 'Sleep Disorder'
 
-    CLUSTERING_FEATURES = ['Age', 'Stress Level']
+    CLUSTERING_FEATURES = ['Heart Rate', 'Daily Steps']
 
     try:
 
-        df = _perform_loading_and_prep(DATA_PATH, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
+        df = perform_loading_and_prep(DATA_PATH, REQUIRED_COLUMNS, FILL_NA_COLS, FILL_NA_VALUE, POSITIVE_COLUMNS)
 
-        # summary_stats = _run_summary_stats(df, STATS_COLUMNS)
-        #
-        # grouped_mean = _run_grouped_mean(df, GROUPED_MEAN_COL, GROUPED_MEAN_TARGET)
-        #
-        # corr_matrix = _run_correlation_matrix(df, STATS_COLUMNS)
+        summary_stats = run_summary_stats(df, STATS_COLUMNS)
+        grouped_mean = run_grouped_mean(df, GROUPED_MEAN_COL, GROUPED_MEAN_TARGET)
+        corr_matrix = run_correlation_matrix(df, STATS_COLUMNS)
 
-        #lin_model = _run_regression(df, REGRESSION_TARGET, REGRESSION_FEATURES)
+        plot_corr_matrix(corr_matrix)
+        plot_data(df, 'scatter', SCATTER_X, SCATTER_Y)
+        plot_data(df, 'histogram', HISTOGRAM_X)
+        plot_data(df, 'boxplot', BOXPLOT_X, BOXPLOT_Y)
 
-        #lin_model.plot("regresja_age.png")
+        lin_model = run_regression(df, ID_COL, REGRESSION_TARGET, REGRESSION_FEATURES)
+        lin_model.plot()
 
-        #knn_model = _run_classification(df, CLASSIFICATION_TARGET, CLASSIFICATION_FEATURES)
-        #knn_model.plot("occupation_sleep_disorder")
+        knn_model = run_classification(df, ID_COL, CLASSIFICATION_FEATURES)
+        knn_model.plot()
 
-        kmeans_model = _run_clustering(df, CLUSTERING_FEATURES)
+        kmeans_model = run_clustering(df, ID_COL, CLUSTERING_FEATURES)
         kmeans_model.plot()
 
 
@@ -173,5 +82,71 @@ def test_pipeline():
         print(f"Wystąpił nieoczekiwany błąd podczas działania programu: {e}")
 
 
+def test_pipeline_exams():
+
+    DATA_PATH = os.path.join('data', 'student_exam_scores.csv')
+
+    REQUIRED_COLUMNS = ['student_id', 'hours_studied', 'sleep_hours', 'attendance_percent', 'previous_scores', 'exam_score']
+
+    POSITIVE_COLUMNS = ['hours_studied', 'sleep_hours', 'attendance_percent', 'previous_scores', 'exam_score']
+
+    ID_COL = 'student_id'
+
+    FILL_NA_COLS = []
+
+    FILL_NA_VALUE = 0
+
+    STATS_COLUMNS = ['hours_studied', 'sleep_hours', 'previous_scores', 'exam_score']
+
+    GROUPED_MEAN_COL = 'previous_scores'
+    GROUPED_MEAN_TARGET = 'exam_score'
+
+    SCATTER_X = 'hours_studied'
+    SCATTER_Y = 'exam_score'
+
+    HISTOGRAM_X = 'exam_score'
+
+    BOXPLOT_X = 'previous_scores'
+    BOXPLOT_Y = 'exam_score'
+
+    REGRESSION_FEATURES = ['hours_studied']
+    REGRESSION_TARGET = 'exam_score'
+
+    CLASSIFICATION_FEATURES = ['hours_studied']
+    CLASSIFICATION_TARGET = 'exam_score'
+
+    CLUSTERING_FEATURES = ['hours_studied', 'attendance_percent']
+
+    try:
+
+        df = perform_loading_and_prep(DATA_PATH, REQUIRED_COLUMNS, FILL_NA_COLS, FILL_NA_VALUE, POSITIVE_COLUMNS)
+
+        summary_stats = run_summary_stats(df, STATS_COLUMNS)
+        grouped_mean = run_grouped_mean(df, GROUPED_MEAN_COL, GROUPED_MEAN_TARGET)
+        corr_matrix = run_correlation_matrix(df, STATS_COLUMNS)
+
+        plot_corr_matrix(corr_matrix)
+        plot_data(df, 'scatter', SCATTER_X, SCATTER_Y)
+        plot_data(df, 'histogram', HISTOGRAM_X)
+        plot_data(df, 'boxplot', BOXPLOT_X, BOXPLOT_Y)
+
+        lin_model = run_regression(df, ID_COL, REGRESSION_TARGET, REGRESSION_FEATURES)
+        lin_model.plot("linear_students")
+
+        # knn_model = run_classification(df, ID_COL, CLASSIFICATION_TARGET, CLASSIFICATION_FEATURES)
+        # knn_model.plot("knn_students")
+
+        kmeans_model = run_clustering(df, ID_COL, CLUSTERING_FEATURES, 5)
+        kmeans_model.plot("cluster_students")
+
+
+    except InvalidDataError as e:
+        print(f"Błąd w danych (InvalidDataError): {e}")
+    except Exception as e:
+        print(f"Wystąpił nieoczekiwany błąd podczas działania programu: {e}")
+
+
+
 if __name__ == "__main__":
-    test_pipeline()
+    #test_pipeline_sleep()
+    test_pipeline_exams()

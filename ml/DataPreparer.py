@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 class DataPreparer:
-    def __init__(self, df: pd.DataFrame, id_col='Person ID'):
+    def __init__(self, df: pd.DataFrame, id_col):
         self.df = df.copy()
         self.id_col = id_col
 

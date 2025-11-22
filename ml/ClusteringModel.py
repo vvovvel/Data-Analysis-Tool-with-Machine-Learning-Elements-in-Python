@@ -9,17 +9,18 @@ from sklearn.metrics import silhouette_score
 #Algorytm przesuwa "środki" klastrów (centroidy), aż każdy punkt danych będzie najbliżej swojego centroidu.
 
 class ClusteringModel(BaseModel):
-    X_scaled = None
-    feature_cols = None
-    n_clusters = None
 
-    def __init__(self, df=None, feature_cols=None, n_clusters=3, random_state=42):
+    def __init__(self, df=None, id_col=None ,feature_cols=None, n_clusters=3, random_state=42):
+        self.id_col = id_col
+        self.X_scaled = None
+        self.feature_cols = None
+        self.n_clusters = None
 
         super().__init__(KMeans(n_clusters=n_clusters, random_state=random_state)) #model importowany z sklearn
         self.n_clusters = n_clusters #liczba klastrów tzn grup
 
         if df is not None:
-            preparer = DataPreparer(df, id_col='Person ID')
+            preparer = DataPreparer(df, id_col)
 
             X_scaled = preparer.prepare_clustering(feature_cols=feature_cols)  # przygotowywanie danych pod KMeans
             self.X_scaled = X_scaled
@@ -80,7 +81,7 @@ class ClusteringModel(BaseModel):
 
         # --- Rysowanie ---
 
-        cmap = plt.get_cmap('Spectral', n_unique_clusters)  # Colormapa dla klastrów
+        cmap = plt.get_cmap('Dark2', n_unique_clusters)  # Colormapa dla klastrów
 
         # Wykres rozrzutu (Punkty Danych)
         for i in range(n_unique_clusters):  # rysujemy dla każdego klastra punkty, które się w nim znajdują
@@ -102,7 +103,7 @@ class ClusteringModel(BaseModel):
                         edgecolors='k',
                         linewidths=1.5)
 
-        plt.title(f'Wizualizacja Klasteryzacji K-Means: {feature_name_1} vs {feature_name_2}', fontsize=14)
+        plt.title(f'Wizualizacja klasteryzacji: {feature_name_1} vs {feature_name_2}', fontsize=14)
         plt.xlabel(feature_name_1, fontsize=12)
         plt.ylabel(feature_name_2, fontsize=12)
         plt.legend(loc='best')  # lokalizacja dynamiczna, w najlepszym możliwym miejscu

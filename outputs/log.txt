@@ -1,131 +1,340 @@
-[START] ANALIZA - Wed Nov 12 12:59:25 2025
-[END] ANALIZA - Wed Nov 12 12:59:28 2025 | Trwanie: 2.9646s
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:38:05 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:38:05 2025 | Trwanie: 0.0080s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Wed Nov 12 13:14:58 2025
-[END] ŁADOWANIE i PREPROCESSING - Wed Nov 12 13:14:58 2025 | Trwanie: 0.0055s
+[START] STATYSTYKI OPISOWE - Sat Nov 22 11:38:05 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 11:38:05 2025 | Trwanie: 0.0111s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Wed Nov 12 13:14:58 2025
-[END] MODEL: REGRESJA LINIOWA - Wed Nov 12 13:14:58 2025 | Trwanie: 0.0058s
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:38:05 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:38:05 2025 | Trwanie: 0.0129s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Wed Nov 12 13:14:58 2025
-[END] MODEL: KLASYFIKACJA KNN - Wed Nov 12 13:14:58 2025 | Trwanie: 0.0095s
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 11:38:05 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 11:38:05 2025 | Trwanie: 0.0026s
 --------------------------------------------------
-[START] MODEL: KLASTERYZACJA KMeans - Wed Nov 12 13:14:58 2025
-[END] MODEL: KLASTERYZACJA KMeans - Wed Nov 12 13:15:00 2025 | Trwanie: 1.7502s
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 11:38:05 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 11:38:05 2025 | Trwanie: 0.0136s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Wed Nov 12 13:54:49 2025
-[END] ŁADOWANIE i PREPROCESSING - Wed Nov 12 13:54:49 2025 | Trwanie: 0.0043s
+[START] MODEL: KLASYFIKACJA KNN - Sat Nov 22 11:38:05 2025
+[END] MODEL: KLASYFIKACJA KNN - Sat Nov 22 11:38:05 2025 | Trwanie: 0.0120s
 --------------------------------------------------
-[START] STATYSTYKI OPISOWE - Wed Nov 12 13:54:49 2025
-[END] STATYSTYKI OPISOWE - Wed Nov 12 13:54:49 2025 | Trwanie: 0.0116s
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 11:38:05 2025
+[ERROR] MODEL: KLASTERYZACJA KMeans - TypeError: unsupported format string passed to dict.__format__
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 11:38:09 2025 | Trwanie: 3.5057s
 --------------------------------------------------
-[START] STATYSTYKI: Średnia Grupowa - Wed Nov 12 13:54:49 2025
-[END] STATYSTYKI: Średnia Grupowa - Wed Nov 12 13:54:49 2025 | Trwanie: 0.0126s
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:40:57 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:40:57 2025 | Trwanie: 0.0070s
 --------------------------------------------------
-[START] STATYSTYKI: Macierz Korelacji - Wed Nov 12 13:54:49 2025
-[END] STATYSTYKI: Macierz Korelacji - Wed Nov 12 13:54:49 2025 | Trwanie: 0.0025s
+[START] STATYSTYKI OPISOWE - Sat Nov 22 11:40:57 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 11:40:57 2025 | Trwanie: 0.0107s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Wed Nov 12 13:54:49 2025
-[END] MODEL: REGRESJA LINIOWA - Wed Nov 12 13:54:49 2025 | Trwanie: 0.0039s
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:40:57 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:40:57 2025 | Trwanie: 0.0049s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Wed Nov 12 13:54:49 2025
-[END] MODEL: KLASYFIKACJA KNN - Wed Nov 12 13:54:49 2025 | Trwanie: 0.0068s
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 11:40:57 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 11:40:57 2025 | Trwanie: 0.0345s
 --------------------------------------------------
-[START] MODEL: KLASTERYZACJA KMeans - Wed Nov 12 13:54:49 2025
-[END] MODEL: KLASTERYZACJA KMeans - Wed Nov 12 13:54:51 2025 | Trwanie: 1.7368s
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 11:40:57 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 11:40:57 2025 | Trwanie: 0.0078s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Wed Nov 12 13:55:21 2025
-[END] ŁADOWANIE i PREPROCESSING - Wed Nov 12 13:55:21 2025 | Trwanie: 0.0044s
+[START] MODEL: KLASYFIKACJA KNN - Sat Nov 22 11:40:58 2025
+[ERROR] MODEL: KLASYFIKACJA KNN - ValueError: Format specifier missing precision
+[END] MODEL: KLASYFIKACJA KNN - Sat Nov 22 11:40:58 2025 | Trwanie: 0.0111s
 --------------------------------------------------
-[START] STATYSTYKI OPISOWE - Wed Nov 12 13:55:21 2025
-[END] STATYSTYKI OPISOWE - Wed Nov 12 13:55:21 2025 | Trwanie: 0.0073s
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:42:32 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:42:32 2025 | Trwanie: 0.0070s
 --------------------------------------------------
-[START] STATYSTYKI: Średnia Grupowa - Wed Nov 12 13:55:21 2025
-[END] STATYSTYKI: Średnia Grupowa - Wed Nov 12 13:55:21 2025 | Trwanie: 0.0035s
+[START] STATYSTYKI OPISOWE - Sat Nov 22 11:42:32 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 11:42:32 2025 | Trwanie: 0.0093s
 --------------------------------------------------
-[START] STATYSTYKI: Macierz Korelacji - Wed Nov 12 13:55:21 2025
-[END] STATYSTYKI: Macierz Korelacji - Wed Nov 12 13:55:21 2025 | Trwanie: 0.0053s
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:42:32 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:42:32 2025 | Trwanie: 0.0059s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Wed Nov 12 13:55:21 2025
-[END] MODEL: REGRESJA LINIOWA - Wed Nov 12 13:55:21 2025 | Trwanie: 0.0041s
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 11:42:32 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 11:42:32 2025 | Trwanie: 0.0317s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Wed Nov 12 13:55:21 2025
-[END] MODEL: KLASYFIKACJA KNN - Wed Nov 12 13:55:21 2025 | Trwanie: 0.0064s
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 11:42:32 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 11:42:32 2025 | Trwanie: 0.0058s
 --------------------------------------------------
-[START] MODEL: KLASTERYZACJA KMeans - Wed Nov 12 13:55:21 2025
-[END] MODEL: KLASTERYZACJA KMeans - Wed Nov 12 13:55:23 2025 | Trwanie: 1.4580s
+[START] MODEL: KLASYFIKACJA KNN - Sat Nov 22 11:42:32 2025
+[END] MODEL: KLASYFIKACJA KNN - Sat Nov 22 11:42:32 2025 | Trwanie: 0.0163s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:25:33 2025
-[END] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:25:33 2025 | Trwanie: 0.0146s
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 11:42:32 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 11:42:34 2025 | Trwanie: 1.8304s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:25:33 2025
-[ERROR] MODEL: REGRESJA LINIOWA - TypeError: RegressionModel.__init__() got an unexpected keyword argument 'target_col'. Did you mean 'target_name'?
-[END] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:25:33 2025 | Trwanie: 0.0003s
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:58:51 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:58:51 2025 | Trwanie: 0.0048s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:25:40 2025
-[END] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:25:40 2025 | Trwanie: 0.0046s
+[START] STATYSTYKI OPISOWE - Sat Nov 22 11:58:51 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 11:58:51 2025 | Trwanie: 0.0072s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:25:40 2025
-[ERROR] MODEL: REGRESJA LINIOWA - TypeError: RegressionModel.__init__() got an unexpected keyword argument 'target_col'. Did you mean 'target_name'?
-[END] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:25:40 2025 | Trwanie: 0.0003s
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:58:51 2025
+[ERROR] STATYSTYKI: Średnia Grupowa - InvalidDataError: Kolumna 'BMI Category' nie zawiera wartości liczbowych.
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:58:51 2025 | Trwanie: 0.0003s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:30:05 2025
-[END] ŁADOWANIE i PREPROCESSING - Fri Nov 14 14:30:05 2025 | Trwanie: 0.0048s
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:59:21 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 11:59:21 2025 | Trwanie: 0.0053s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:30:05 2025
-[END] MODEL: REGRESJA LINIOWA - Fri Nov 14 14:30:05 2025 | Trwanie: 0.0179s
+[START] STATYSTYKI OPISOWE - Sat Nov 22 11:59:21 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 11:59:21 2025 | Trwanie: 0.0072s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Sat Nov 15 22:45:00 2025
-[END] ŁADOWANIE i PREPROCESSING - Sat Nov 15 22:45:00 2025 | Trwanie: 0.0138s
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:59:21 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 11:59:21 2025 | Trwanie: 0.0047s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Sat Nov 15 22:45:00 2025
-[END] MODEL: REGRESJA LINIOWA - Sat Nov 15 22:45:00 2025 | Trwanie: 0.0139s
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 11:59:21 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 11:59:21 2025 | Trwanie: 0.0016s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Sat Nov 15 22:47:04 2025
-[END] ŁADOWANIE i PREPROCESSING - Sat Nov 15 22:47:04 2025 | Trwanie: 0.0043s
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 11:59:21 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 11:59:21 2025 | Trwanie: 0.0044s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Sat Nov 15 22:47:04 2025
-[END] MODEL: REGRESJA LINIOWA - Sat Nov 15 22:47:04 2025 | Trwanie: 0.0043s
+[START] MODEL: KLASYFIKACJA KNN - Sat Nov 22 11:59:21 2025
+[END] MODEL: KLASYFIKACJA KNN - Sat Nov 22 11:59:21 2025 | Trwanie: 0.0068s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Sat Nov 15 23:57:46 2025
-[END] ŁADOWANIE i PREPROCESSING - Sat Nov 15 23:57:46 2025 | Trwanie: 0.0044s
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 11:59:22 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 11:59:23 2025 | Trwanie: 1.7154s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Sat Nov 15 23:57:46 2025
-[END] MODEL: KLASYFIKACJA KNN - Sat Nov 15 23:57:46 2025 | Trwanie: 0.0159s
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:18:26 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:18:26 2025 | Trwanie: 0.0043s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:00:12 2025
-[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:00:12 2025 | Trwanie: 0.0044s
+[START] STATYSTYKI OPISOWE - Sat Nov 22 12:18:26 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 12:18:26 2025 | Trwanie: 0.0066s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:00:12 2025
-[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:00:12 2025 | Trwanie: 0.0133s
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 12:18:26 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 12:18:26 2025 | Trwanie: 0.0064s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:00:23 2025
-[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:00:23 2025 | Trwanie: 0.0043s
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 12:18:26 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 12:18:26 2025 | Trwanie: 0.0017s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:00:23 2025
-[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:00:23 2025 | Trwanie: 0.0088s
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 12:18:27 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 12:18:27 2025 | Trwanie: 0.0042s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:02:52 2025
-[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:02:52 2025 | Trwanie: 0.0044s
+[START] MODEL: KLASYFIKACJA KNN - Sat Nov 22 12:18:27 2025
+[END] MODEL: KLASYFIKACJA KNN - Sat Nov 22 12:18:27 2025 | Trwanie: 0.0063s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:02:52 2025
-[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:02:52 2025 | Trwanie: 0.0083s
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 12:18:27 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 12:18:29 2025 | Trwanie: 1.7099s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:02:57 2025
-[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:02:57 2025 | Trwanie: 0.0056s
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:55:52 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:55:52 2025 | Trwanie: 0.0049s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:02:57 2025
-[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:02:57 2025 | Trwanie: 0.0108s
+[START] STATYSTYKI OPISOWE - Sat Nov 22 12:55:52 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 12:55:52 2025 | Trwanie: 0.0080s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:05:06 2025
-[END] ŁADOWANIE i PREPROCESSING - Sun Nov 16 00:05:06 2025 | Trwanie: 0.0042s
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 12:55:52 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 12:55:52 2025 | Trwanie: 0.0067s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:05:06 2025
-[END] MODEL: KLASYFIKACJA KNN - Sun Nov 16 00:05:06 2025 | Trwanie: 0.0074s
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 12:55:52 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 12:55:52 2025 | Trwanie: 0.0019s
 --------------------------------------------------
-[START] ŁADOWANIE i PREPROCESSING - Tue Nov 18 16:01:12 2025
-[END] ŁADOWANIE i PREPROCESSING - Tue Nov 18 16:01:12 2025 | Trwanie: 0.0140s
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 12:55:52 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 12:55:52 2025 | Trwanie: 0.0038s
 --------------------------------------------------
-[START] MODEL: KLASTERYZACJA KMeans - Tue Nov 18 16:01:12 2025
-[END] MODEL: KLASTERYZACJA KMeans - Tue Nov 18 16:01:14 2025 | Trwanie: 2.3353s
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:55:52 2025
+[ERROR] ŁADOWANIE i PREPROCESSING - InvalidDataError: File does not exist
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:55:52 2025 | Trwanie: 0.0003s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:56:19 2025
+[ERROR] ŁADOWANIE i PREPROCESSING - InvalidDataError: File does not exist
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:56:19 2025 | Trwanie: 0.0003s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:58:40 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 12:58:40 2025 | Trwanie: 0.0036s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 12:58:40 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 12:58:40 2025 | Trwanie: 0.0067s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 12:58:40 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 12:58:40 2025 | Trwanie: 0.0037s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 12:58:40 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 12:58:40 2025 | Trwanie: 0.0018s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 12:58:40 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 12:58:40 2025 | Trwanie: 0.0041s
+--------------------------------------------------
+[START] MODEL: KLASYFIKACJA KNN - Sat Nov 22 12:58:40 2025
+[ERROR] MODEL: KLASYFIKACJA KNN - ValueError: Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.
+[END] MODEL: KLASYFIKACJA KNN - Sat Nov 22 12:58:40 2025 | Trwanie: 0.0042s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:00:53 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:00:53 2025 | Trwanie: 0.0044s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:00:53 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:00:53 2025 | Trwanie: 0.0081s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:00:53 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:00:53 2025 | Trwanie: 0.0070s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:00:53 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:00:53 2025 | Trwanie: 0.0019s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:00:54 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:00:54 2025 | Trwanie: 0.0042s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:00:54 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:00:54 2025 | Trwanie: 0.0020s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:00:54 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:00:54 2025 | Trwanie: 0.0049s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:00:54 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:00:54 2025 | Trwanie: 0.0028s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:00:54 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:00:54 2025 | Trwanie: 0.0013s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:00:55 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:00:55 2025 | Trwanie: 0.0037s
+--------------------------------------------------
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:00:55 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:00:58 2025 | Trwanie: 2.9035s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:01:51 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:01:51 2025 | Trwanie: 0.0042s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:01:51 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:01:51 2025 | Trwanie: 0.0066s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:01:51 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:01:51 2025 | Trwanie: 0.0040s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:01:51 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:01:51 2025 | Trwanie: 0.0017s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:01:51 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:01:51 2025 | Trwanie: 0.0039s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:01:51 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:01:51 2025 | Trwanie: 0.0021s
+--------------------------------------------------
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:01:51 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:01:53 2025 | Trwanie: 1.4712s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:02:13 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:02:13 2025 | Trwanie: 0.0032s
+--------------------------------------------------
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:02:13 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:02:14 2025 | Trwanie: 1.4553s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:04:22 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:04:22 2025 | Trwanie: 0.0032s
+--------------------------------------------------
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:04:22 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:04:24 2025 | Trwanie: 1.6646s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:06:12 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:06:12 2025 | Trwanie: 0.0030s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:06:12 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:06:12 2025 | Trwanie: 0.0069s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:06:12 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:06:12 2025 | Trwanie: 0.0032s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:06:12 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:06:12 2025 | Trwanie: 0.0016s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:06:13 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:06:13 2025 | Trwanie: 0.0041s
+--------------------------------------------------
+[START] MODEL: KLASYFIKACJA KNN - Sat Nov 22 13:06:13 2025
+[ERROR] MODEL: KLASYFIKACJA KNN - ValueError: Unknown label type: continuous. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.
+[END] MODEL: KLASYFIKACJA KNN - Sat Nov 22 13:06:13 2025 | Trwanie: 0.0043s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:14:24 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:14:24 2025 | Trwanie: 0.0035s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:14:24 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:14:24 2025 | Trwanie: 0.0064s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:14:24 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:14:24 2025 | Trwanie: 0.0038s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:14:24 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:14:24 2025 | Trwanie: 0.0021s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:14:25 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:14:25 2025 | Trwanie: 0.0041s
+--------------------------------------------------
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:14:25 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:14:26 2025 | Trwanie: 1.7033s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:14:44 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:14:44 2025 | Trwanie: 0.0034s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:14:44 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:14:44 2025 | Trwanie: 0.0066s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:14:44 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:14:44 2025 | Trwanie: 0.0033s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:14:44 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:14:44 2025 | Trwanie: 0.0018s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:14:45 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:14:45 2025 | Trwanie: 0.0040s
+--------------------------------------------------
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:14:45 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:14:47 2025 | Trwanie: 1.4540s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:15:46 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:15:46 2025 | Trwanie: 0.0042s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:15:46 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:15:46 2025 | Trwanie: 0.0066s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:15:46 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:15:46 2025 | Trwanie: 0.0067s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:15:46 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:15:46 2025 | Trwanie: 0.0017s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:15:46 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:15:46 2025 | Trwanie: 0.0039s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:16:44 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:16:44 2025 | Trwanie: 0.0044s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:16:44 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:16:44 2025 | Trwanie: 0.0066s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:16:44 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:16:44 2025 | Trwanie: 0.0067s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:16:44 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:16:44 2025 | Trwanie: 0.0017s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:16:44 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:16:44 2025 | Trwanie: 0.0039s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:17:16 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:17:16 2025 | Trwanie: 0.0041s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:17:16 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:17:16 2025 | Trwanie: 0.0063s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:17:16 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:17:16 2025 | Trwanie: 0.0063s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:17:16 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:17:16 2025 | Trwanie: 0.0014s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:17:17 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:17:17 2025 | Trwanie: 0.0040s
+--------------------------------------------------
+[START] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:17:45 2025
+[END] ŁADOWANIE i PREPROCESSING - Sat Nov 22 13:17:45 2025 | Trwanie: 0.0032s
+--------------------------------------------------
+[START] STATYSTYKI OPISOWE - Sat Nov 22 13:17:45 2025
+[END] STATYSTYKI OPISOWE - Sat Nov 22 13:17:45 2025 | Trwanie: 0.0063s
+--------------------------------------------------
+[START] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:17:45 2025
+[END] STATYSTYKI: Średnia Grupowa - Sat Nov 22 13:17:45 2025 | Trwanie: 0.0034s
+--------------------------------------------------
+[START] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:17:45 2025
+[END] STATYSTYKI: Macierz Korelacji - Sat Nov 22 13:17:45 2025 | Trwanie: 0.0015s
+--------------------------------------------------
+[START] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:17:46 2025
+[END] MODEL: REGRESJA LINIOWA - Sat Nov 22 13:17:46 2025 | Trwanie: 0.0040s
+--------------------------------------------------
+[START] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:17:46 2025
+[END] MODEL: KLASTERYZACJA KMeans - Sat Nov 22 13:17:48 2025 | Trwanie: 1.4444s
 --------------------------------------------------

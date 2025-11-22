@@ -4,6 +4,9 @@ from ml.DataPreparer import DataPreparer
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 
+from utils.context_manager import TimeLoggerContext
+
+
 #df -> dataframe, nasz domyślny to ten SleepHealth
 #target_col -> co chcemy przewidzieć, musi być typu liczbowego
 #feature_cols -> kolumny na podstawwie których chcemy przewidzieć, mogą być dowolne ale nie mogą zawierać target_col (nawet jak zawierają to i tak zostanie to usnięte w DataPreperer)
@@ -15,20 +18,22 @@ from sklearn.metrics import mean_squared_error
 class RegressionModel(BaseModel):
 
     #konstruktor
-    def __init__(self, df=None, target_col=None, feature_cols=None, test_size=0.2):
+    def __init__(self, df=None, id_col=None ,target_col=None, feature_cols=None, test_size=0.2):
         #zapisujemy tylko niektóre zmienne, które będą nam potrzebne w innych metodach np evaluate, plot
 
+        self.id_col = id_col
         self.X_test = None
         self.y_test = None
         self.feature_cols = None
         self.target_col = None
         self.coefficients = None
+        self.test_size = None
 
         #konstruktor klasy nadrzędnej
         super().__init__(LinearRegression()) #odnosi się do klasy nadrzędnej czyli MLModel i wywołuje tamten konstruktor z modelem LinearRegression zaimportowanym z sklearn
 
         if df is not None and target_col is not None: #sprawdzamy oczywiście czy nie ma bzdurnych danych, zakładamy już że df jest po loadowaniu, walidacji itd
-            preparer = DataPreparer(df, id_col='Person ID') #tworzymy obiekt DataPreperer
+            preparer = DataPreparer(df, id_col) #tworzymy obiekt DataPreperer
 
             X, y, X_train, self.X_test, y_train, self.y_test = preparer.prepare_data_regression(
                 target_col=target_col,
@@ -77,6 +82,7 @@ class RegressionModel(BaseModel):
 
         return summary
 
+
     # specyficzne rysowanie wykresu
 
     def _draw_plot_content(self, plt):
@@ -109,7 +115,7 @@ class RegressionModel(BaseModel):
         sort_idx = x_data.argsort()
         plt.plot(x_data[sort_idx], y_pred[sort_idx], color='#e74c3c', linewidth=3, label='Linia Regresji')
 
-        plt.title(f'Regresja Liniowa: {target_name} vs {feature_name}', fontsize=14)
+        plt.title(f'Wizualizacja regresji liniowej: {target_name} vs {feature_name}', fontsize=14)
         plt.xlabel(feature_name, fontsize=12)
         plt.ylabel(target_name, fontsize=12)
         plt.legend()

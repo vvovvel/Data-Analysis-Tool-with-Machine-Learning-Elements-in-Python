@@ -1,7 +1,8 @@
 import pandas as pd
 import pytest
-from analysis.statistics import summary_stats
+from analysis.statistics import _summary_stats
 from data.exceptions import InvalidDataError
+
 
 def test_summary_stats_numeric_check():
     df = pd.DataFrame({
@@ -9,9 +10,14 @@ def test_summary_stats_numeric_check():
         'Age': [20, 30, 40],
         'Daily Steps': [1000, 2000, 3000]
     })
-    stats = summary_stats(df, ['Sleep Duration', 'Age'])
-    assert stats['Sleep Duration']['mean'] == 8.0
-    assert stats['Age']['median'] == 30.0
+
+    stats = _summary_stats(df, ['Sleep Duration', 'Age'])
+
+    assert stats.loc['Sleep Duration', 'mean'] == 8.0
+
+    assert stats.loc['Age', 'max'] == 40.0
+
+    assert stats.loc['Sleep Duration', 'min'] == 6.0
 
 def test_summary_stats_raises_on_non_numeric():
     df = pd.DataFrame({
@@ -19,7 +25,7 @@ def test_summary_stats_raises_on_non_numeric():
         'Name': ['Alice', 'Bob']
     })
     with pytest.raises(InvalidDataError):
-        summary_stats(df, ['Name'])
+        _summary_stats(df, ['Name'])
 
 # #Jak to działa:
 # Pytest „wchodzi” w blok with.

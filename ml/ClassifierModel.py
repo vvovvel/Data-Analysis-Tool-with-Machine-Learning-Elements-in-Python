@@ -14,7 +14,8 @@ from sklearn.metrics import accuracy_score
 
 class ClassifierModel(BaseModel):
 
-    def __init__(self, df=None, target_col=None, feature_cols=None, n_neighbors=5, test_size=0.2):
+    def __init__(self, df=None, id_col=None, target_col=None, feature_cols=None, n_neighbors=5, test_size=0.2):
+        self.id_col = id_col
         self.X_test = None
         self.y_test = None
         self.n_neighbors = None
@@ -26,7 +27,7 @@ class ClassifierModel(BaseModel):
         self.target_col = target_col
 
         if df is not None and target_col is not None:
-            preparer = DataPreparer(df, id_col='Person ID')
+            preparer = DataPreparer(df, id_col)
 
             # Używamy preparer.prepare_classification (który skaluje dane)
             X, y, X_train, self.X_test, y_train, self.y_test = preparer.prepare_classification(
@@ -88,7 +89,7 @@ class ClassifierModel(BaseModel):
 
         # przyporządkowanie kolorów do klas
         n_unique_classes = len(classes)  # ilość unikalnych klas
-        cmap = plt.get_cmap('Spectral', n_unique_classes)  # pobranie dokładnie tylu kolorów ile trzeba
+        cmap = plt.get_cmap('Dark2', n_unique_classes)  # pobranie dokładnie tylu kolorów ile trzeba
         class_to_color = {cls: cmap(i) for i, cls in enumerate(classes)}  # przypisanie koloru do klasy
 
         # Rysujemy prawdziwe etykiety (filled)
@@ -120,7 +121,7 @@ class ClassifierModel(BaseModel):
         yticklabels = [num_to_class[i] for i in yticks]
         plt.yticks(yticks, yticklabels)  # pozycje etykiet są na wysokości takiej, jak wcześniej zostały ustalone w class_to_num
 
-        plt.title(f'Klasyfikacja: {target_name} vs {feature_name}', fontsize=14)
+        plt.title(f'Wizualizacja klasyfikacji: {target_name} vs {feature_name}', fontsize=14)
         plt.xlabel(feature_name, fontsize=12)
         plt.ylabel(target_name, fontsize=12)
 

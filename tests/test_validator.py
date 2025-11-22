@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from data.validator import validate_dataset
+from data.loading_and_prep import _validate_dataset
 from data.exceptions import InvalidDataError
 
 def make_valid_df():
@@ -33,22 +33,22 @@ POSITIVE_COLUMNS = [
 
 def test_validator_accepts_valid_df():
     df = make_valid_df()
-    assert validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS) is True  #brak błędów
+    assert _validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS) is True  #brak błędów
 
 def test_validator_detects_negative_age():
     df = make_valid_df()
     df.loc[0, 'Age'] = -5
     with pytest.raises(InvalidDataError):
-        validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
+        _validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
 
 def test_validator_detects_missing_value():
     df = make_valid_df()
     df.loc[1, 'Sleep Duration'] = None
     with pytest.raises(InvalidDataError):
-        validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
+        _validate_dataset(df, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
 
 def test_validator_detects_missing_column():
     df = make_valid_df()
     df_missing = df.drop(columns=['Gender'])
     with pytest.raises(InvalidDataError):
-        validate_dataset(df_missing, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
+        _validate_dataset(df_missing, REQUIRED_COLUMNS, POSITIVE_COLUMNS)
