@@ -1,15 +1,30 @@
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-
-# Virtual environments
-venv/
+# ------------------------------------
+# 1. Zależności środowiskowe
+# ------------------------------------
+.venv/
 env/
+venv/
+# Plik używany do tworzenia środowiska wirtualnego w PyCharm
+requirements.txt.bak
 
-# PyCharm
-.idea/
+# ------------------------------------
+# 2. Pliki IDE/Systemowe
+# ------------------------------------
+.idea/                 # Ustawienia PyCharm
+*.iml                  # Pliki modułów IDE
+.DS_Store              # Pliki systemowe macOS
+Thumbs.db              # Pliki systemowe Windows
 
-# MacOS
-.DS_Store
+# ------------------------------------
+# 3. Cache i Pliki Automatyczne
+# ------------------------------------
+__pycache__/           # Skompilowane pliki Pythona
+*.pyc
+*.pyd
+*.so
+
+# ------------------------------------
+# 4. Dane Wynikowe i Testowe
+# ------------------------------------
+outputs/               # Folder z wykresami i logami
+.pytest_cache/         # Cache pytest
