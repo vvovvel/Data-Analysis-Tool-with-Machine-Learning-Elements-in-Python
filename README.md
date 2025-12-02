@@ -34,6 +34,14 @@ Projekt wymaga środowiska **Python 3.9+** oraz następujących bibliotek:
 `python main.py`
 ***
 
+## 💾 Źródło Danych
+
+Dane wykorzystane w projekcie pochodzą z platformy **Kaggle**.
+
+* **Student Exam Scores:** [https://www.kaggle.com/datasets/grandmaster07/student-exam-score-dataset-analysis](https://www.kaggle.com/datasets/grandmaster07/student-exam-score-dataset-analysis)
+* **Sleep Health and Lifestyle:** [https://www.kaggle.com/datasets/851c829b2a41e6dd0b5a60388cd4a2cfda2d54433450ed12141237416c8161bc](https://www.kaggle.com/datasets/851c829b2a41e6dd0b5a60388cd4a2cfda2d54433450ed12141237416c8161bc)
+
+***
 ## 📦 **Struktura Projektu i Opis Modułów**
 
 Projekt opiera się na separacji obowiązków, gdzie każda domena ma swój własny pakiet.
