@@ -23,32 +23,32 @@ Projekt wymaga środowiska **Python 3.9+** oraz następujących bibliotek:
 * `numpy`
 
 ### Instalacja
-1. Klonowanie repozytorium
-git clone https://github.com/vvovvel/Data-Analysis-Tool-with-Machine-Learning-Elements-in-Python.git  
-cd Data-Analysis-Tool-with-Machine-Learning-Elements-in-Python
+1. Klonowanie repozytorium  
+`git clone https://github.com/vvovvel/Data-Analysis-Tool-with-Machine-Learning-Elements-in-Python.git`  
+`cd Data-Analysis-Tool-with-Machine-Learning-Elements-in-Python`
 
-2. Instalacja zależności
-pip install -r requirements.txt
+2. Instalacja zależności   
+`pip install -r requirements.txt`
 
-3. Uruchomienie
-python main.py
-
+3. Uruchomienie  
+`python main.py`
+***
 
 ## 📦 **Struktura Projektu i Opis Modułów**
 
-Projekt opiera się na **separacji obowiązków**, gdzie każda domena ma swój własny pakiet.
+Projekt opiera się na separacji obowiązków, gdzie każda domena ma swój własny pakiet.
 
 | Pakiet / Moduł | Główna Odpowiedzialność                                                                                        |
 | :--- |:---------------------------------------------------------------------------------------------------------------|
 | **`main.py`** | Sterowanie pipeline'em, wybór danych do analizy, obsługa błędów.                                               |
 | **`data/`** | Ładowanie i walidacja danych, uzupełnianie wartości NA.                                                        |
 | **`analysis/`** | Obliczenia statystyczne oraz wizualizacja przy pomocy wykresów scatter, histogram, boxplot.                    |
-| **`ml/`** | Klasy reprezentujące*modele ML (klasa bazowa i dziedziczące) oraz przygotowywanie danych do ich implementacji. |
+| **`ml/`** | Klasy reprezentujące modele ML (klasa bazowa i dziedziczące) oraz przygotowywanie danych do ich implementacji. |
 | **`outputs/`** | Folder do zapisu wszystkich wygenerowanych wykresów i logów czasowych.                                         |
 | **`tests/`** | Testy jednostkowe statystyk i walidatora.                                                                      |
 | **`utils/`** | Context Manager logujący czas i decorator wypisujący czas działania funkcji.                                   |
 
-
+***
 ## 📁 Szczegółowa struktura katalogów 
 ```
 projekt/
@@ -77,6 +77,7 @@ projekt/
 ├── main.py
 └── README.md 
 ```
+***
 ## 📑 Wyniki Działania Pipeline'u (Przykłady)
 
 Poniżej przedstawiono przykłady plików i wyników generowanych automatycznie przez program po uruchomieniu jednego z pipeline'ów zdefiniowanych
@@ -212,9 +213,7 @@ W pliku `log.txt` zapisuje się czas wykonania każdej analizy:
 --------------------------------------------------
 
 ```
-
-
-
+***
 ## 💻 Jak użyć własnego zbioru danych?
 
 W przypadku tego projektu, aby uruchomić pipeline na własnym pliku CSV, należy:  
@@ -296,14 +295,15 @@ Przykładowa zmiana:
 
 Po zakończeniu działania pipeline'u wszystkie wyniki oraz wykresy zostaną zapisane w katalogu `outputs/`.
 
+***
 
 ## ➡️ Dalszy rozwój i potencjalne ulepszenia
 
 Projekt został zaprojektowany modularnie, aby umożliwić jego rozbudowę w następujących obszarach:
 
 * **Zwiększenie Odporności Pipeline'u (Soft Failures):** Modyfikacja runnerów ML (`ModelRunner.py`) w celu zapewnienia, że błąd podczas trenowania jednego modelu (np. klasyfikacji) nie przerywa całego procesu analizy, pozwalając na kontynuację kolejnych kroków (np. klasteryzacji).
-* **Dodanie Interfejsu Użytkownika (UI):** Zaimplementowanie prostej aplikacji dla użytkownika końcowego (np. opartej na Streamlit lub Flask), która zastąpi obecne, statyczne wywołania funkcji w main.py bardziej dynamicznym wyborem analizy.
+* **Dodanie Interfejsu Użytkownika (UI):** Zaimplementowanie prostej aplikacji dla użytkownika końcowego, która zastąpi obecne, statyczne wywołania funkcji w main.py bardziej dynamicznym wyborem analizy.
 * **Rozszerzenie Zestawu Modeli ML:** Dodanie kolejnych algorytmów uczenia maszynowego.
 * **Poprawa Wizualizacji (3D i Etykiety):**
     * Implementacja wykresów 3D dla analizy cech (np. trzech cech naraz).
-    * Wizualizacja etykiet klastrów/klas na oryginalnych, **nieskalowanych** danych w celu lepszej interpretacji wyników.
+    * Wizualizacja etykiet klastrów/klas na oryginalnych, nieskalowanych danych w celu lepszej interpretacji wyników.
