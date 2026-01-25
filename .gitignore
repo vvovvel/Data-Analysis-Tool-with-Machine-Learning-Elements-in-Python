@@ -28,3 +28,7 @@ __pycache__/           # Skompilowane pliki Pythona
 # ------------------------------------
 outputs/               # Folder z wykresami i logami
 .pytest_cache/         # Cache pytest
+
+__pycache__/
+.idea/
+*.py[cod]
