@@ -27,9 +27,9 @@ def test_summary_stats_raises_on_non_numeric():
     with pytest.raises(InvalidDataError):
         _summary_stats(df, ['Name'])
 
-# #Jak to działa:
-# Pytest „wchodzi” w blok with.
-# Uruchamia kod w bloku (summary_stats(df, ['Name'])).
-# Jeśli kod rzuci dokładnie wyjątek InvalidDataError → test przechodzi.
-# Jeśli kod nie rzuci wyjątku → test nie przechodzi, pytest zgłasza błąd.
-# Jeśli kod rzuci inny wyjątek → test też nie przechodzi, pytest pokazuje inny błąd.
+# # How it works:
+# Pytest "enters" the with block.
+# It executes the code inside (summary_stats(df, ['Name'])).
+# If the code raises exactly the InvalidDataError exception → the test passes.
+# If the code does not raise an exception → the test fails, and pytest reports an error.
+# If the code raises a different exception → the test also fails, and pytest shows a different error.

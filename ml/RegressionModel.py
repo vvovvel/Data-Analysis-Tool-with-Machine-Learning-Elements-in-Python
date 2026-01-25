@@ -1,3 +1,4 @@
+import numpy as np
 from ml.BaseModel import BaseModel
 from ml.DataPreparer import DataPreparer
 
@@ -6,21 +7,19 @@ from sklearn.metrics import mean_squared_error
 
 from utils.context_manager import TimeLoggerContext
 
-
-#df -> dataframe, nasz domyślny to ten SleepHealth
-#target_col -> co chcemy przewidzieć, musi być typu liczbowego
-#feature_cols -> kolumny na podstawwie których chcemy przewidzieć, mogą być dowolne ale nie mogą zawierać target_col (nawet jak zawierają to i tak zostanie to usnięte w DataPreperer)
-#ewentualnie możemy wpisać size czyli w jakiej proporcji dzielimy nasze wiersze (treningowe/testowe)
-#gdy to wpiszemy to automatycznie stworzy się cała klasa, łącznie z podzieleniem na dane treningowe i testowe
-#możemy z niej wydobyć np MSE albo coefficients i dowiedzieć się czy dana zmienna wpływa dodatnio czy ujemnie na wynik
-
+# df -> dataframe, our default is SleepHealth
+# target_col -> what we want to predict, must be numeric
+# feature_cols -> columns used for prediction, can be any but cannot include target_col 
+# (even if included, it will be removed in DataPreparer)
+# optionally we can set test_size (train/test split ratio)
+# once initialized, it creates the whole class, including data splitting
+# we can extract MSE or coefficients to find out if a variable has a positive or negative impact
 
 class RegressionModel(BaseModel):
 
-    #konstruktor
-    def __init__(self, df=None, id_col=None ,target_col=None, feature_cols=None, test_size=0.2):
-        #zapisujemy tylko niektóre zmienne, które będą nam potrzebne w innych metodach np evaluate, plot
-
+    # Constructor
+    def __init__(self, df=None, id_col=None, target_col=None, feature_cols=None, test_size=0.2):
+        # Save only specific variables needed for other methods like evaluate, plot
         self.id_col = id_col
         self.X_test = None
         self.y_test = None
@@ -29,22 +28,22 @@ class RegressionModel(BaseModel):
         self.coefficients = None
         self.test_size = None
 
-        #konstruktor klasy nadrzędnej
-        super().__init__(LinearRegression()) #odnosi się do klasy nadrzędnej czyli MLModel i wywołuje tamten konstruktor z modelem LinearRegression zaimportowanym z sklearn
+        # Call base class constructor
+        super().__init__(LinearRegression()) # Refers to BaseModel and calls its constructor with LinearRegression model
 
-        if df is not None and target_col is not None: #sprawdzamy oczywiście czy nie ma bzdurnych danych, zakładamy już że df jest po loadowaniu, walidacji itd
-            preparer = DataPreparer(df, id_col) #tworzymy obiekt DataPreperer
+        if df is not None and target_col is not None: # Basic data validation
+            preparer = DataPreparer(df, id_col) # Create DataPreparer object
 
             X, y, X_train, self.X_test, y_train, self.y_test = preparer.prepare_data_regression(
                 target_col=target_col,
                 feature_cols=feature_cols,
                 test_size=test_size
-            ) #wywołując odpowiednią metodę
+            ) 
 
-            # Trenujemy model
+            # Train the model
             self.train(X_train, y_train)
 
-            # Zapisujemy wyniki analizy po trenowaniu
+            # Save analysis results after training
             self.target_col = target_col
             self.feature_cols = X_train.columns.tolist()
             self.coefficients = self.model.coef_
@@ -52,76 +51,72 @@ class RegressionModel(BaseModel):
     def evaluate(self):
         try:
             if self.X_test is None or self.y_test is None:
-                raise ValueError("Model nie został poprawnie zainicjowany z danymi.")
+                raise ValueError("Model was not properly initialized with data.")
 
-            y_pred = self.predict(self.X_test) #predict znajduje się w MLModel ale MLModel predict odwołuje się do modelu samego w sobie czyli w tym przypadku LinearRegression
+            y_pred = self.predict(self.X_test) # predict is in BaseModel but calls the internal LinearRegression model
             mse = mean_squared_error(self.y_test, y_pred)
             return mse
         except Exception as e:
-            return {"Error": f"Nie można policzyć MSE: {e}"}
+            return {"Error": f"Cannot calculate MSE: {e}"}
 
     def get_analysis_summary(self):
         if self.coefficients is None:
-            return "Model nie został jeszcze wytrenowany."
+            return "Model has not been trained yet."
 
-        summary = {"Współczynniki Regresji": {}}
+        summary = {"Regression Coefficients": {}}
 
-        for name, coef in zip(self.feature_cols, self.coefficients): #funckja zip łączy elementy z dwóch list w krotki parując po  tym samym indeksie
+        for name, coef in zip(self.feature_cols, self.coefficients): # zip function pairs elements from two lists by index
 
             if coef > 0:
-                impact = "Dodatni"
+                impact = "Positive"
             elif coef < 0:
-                impact = "Ujemny"
+                impact = "Negative"
             else:
-                impact = "Brak wpływu"
+                impact = "No impact"
 
-            summary["Współczynniki Regresji"][name] = {
-                "Wpływ": impact,
-                "Wartość": round(coef, 4)
+            summary["Regression Coefficients"][name] = {
+                "Impact": impact,
+                "Value": round(coef, 4)
             }
 
         return summary
 
-
-    # specyficzne rysowanie wykresu
-
+    # Specific plot implementation
     def _draw_plot_content(self, plt):
 
         if self.X_test is None or self.y_test is None:
-            raise ValueError("Model musi zostać zainicjowany.")
+            raise ValueError("Model must be initialized.")
 
         if self.feature_cols is None:
-            raise ValueError("Brak nazw cech (feature_cols).")
+            raise ValueError("Missing feature names (feature_cols).")
 
         if len(self.feature_cols) != 1:
-            raise ValueError(f"Wizualizacja wymaga dokładnie 1 cechy. Znaleziono: {len(self.feature_cols)}.")
+            raise ValueError(f"Visualization requires exactly 1 feature. Found: {len(self.feature_cols)}.")
 
-        # 2. Pobieranie danych i nazw z atrybutów self
-        feature_name = self.feature_cols[0]  # JEDYNA cecha
-        target_name = self.target_col  # Nazwa Targetu
+        # 2. Extracting data and names from self attributes
+        feature_name = self.feature_cols[0]  # ONLY feature
+        target_name = self.target_col  # Target Name
 
-        # 3. Przygotowanie danych osi
+        # 3. Preparing axis data
         x_data = self.X_test[feature_name].values.flatten()
         y_test_data = self.y_test.values.flatten()
 
-        # 4. Obliczenie predykcji linii regresji
+        # 4. Calculating regression line predictions
         y_pred = self.predict(self.X_test).flatten()
 
-        # --- Rysowanie ---
-        # Wykres rozrzutu (Punkty Danych)
-        plt.scatter(x_data, y_test_data, color='#3498db', alpha=0.6, label='Dane Testowe')
+        # --- Plotting ---
+        # Scatter Plot (Data Points)
+        plt.scatter(x_data, y_test_data, color='#3498db', alpha=0.6, label='Test Data')
 
-        # Linia regresji (Predykcja)
+        # Regression Line (Prediction)
         sort_idx = x_data.argsort()
-        plt.plot(x_data[sort_idx], y_pred[sort_idx], color='#e74c3c', linewidth=3, label='Linia Regresji')
+        plt.plot(x_data[sort_idx], y_pred[sort_idx], color='#e74c3c', linewidth=3, label='Regression Line')
 
-        plt.title(f'Wizualizacja regresji liniowej: {target_name} vs {feature_name}', fontsize=14)
+        plt.title(f'Linear Regression Visualization: {target_name} vs {feature_name}', fontsize=14)
         plt.xlabel(feature_name, fontsize=12)
         plt.ylabel(target_name, fontsize=12)
         plt.legend()
 
-
-    #wywołanie metody bazowej, która zawiera w sobie powtarzające się u wszystkich modeli fragmetny kodu
-
+    # Call the base method containing common code logic for all models
     def plot(self, filename: str = "regression_plot.png"):
         super().plot(filename=filename)

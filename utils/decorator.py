@@ -2,19 +2,19 @@ import time
 import functools
 
 
-def measure_time(func): #drukuje czas działania funkcji
+def measure_time(func): # Prints the execution time of the function
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        start_time = time.perf_counter()  # Precyzyjny czas rozpoczęcia
+        start_time = time.perf_counter()  # High-precision start time
 
-        # Wywołanie oryginalnej funkcji
+        # Call the original function
         result = func(*args, **kwargs)
 
-        end_time = time.perf_counter()  # Czas zakończenia
+        end_time = time.perf_counter()  # End time
         run_time = end_time - start_time
 
-        print(f"|--- Czas wykonania '{func.__name__}': {run_time:.4f} s")
+        print(f"|--- Execution time of '{func.__name__}': {run_time:.4f} s")
 
         return result
 

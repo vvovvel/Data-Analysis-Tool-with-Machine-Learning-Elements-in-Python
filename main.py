@@ -140,10 +140,14 @@ def test_pipeline_exams():
         kmeans_model.plot("cluster_students")
 
 
+
     except InvalidDataError as e:
-        print(f"Błąd w danych (InvalidDataError): {e}")
+
+        print(f"Data error (InvalidDataError): {e}")
+
     except Exception as e:
-        print(f"Wystąpił nieoczekiwany błąd podczas działania programu: {e}")
+
+        print(f"An unexpected error occurred during program execution: {e}")
 
 
 if __name__ == "__main__":

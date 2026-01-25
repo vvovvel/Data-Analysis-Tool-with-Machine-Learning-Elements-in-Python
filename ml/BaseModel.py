@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 from abc import ABC, abstractmethod
 
-class BaseModel:
+class BaseModel(ABC):
     def __init__(self, model):
         self.model = model
 
@@ -16,46 +16,47 @@ class BaseModel:
             else:
                 self.model.fit(X_train)
         except Exception as e:
-            print(f"[ERROR] Błąd podczas trenowania: {e}")
+            print(f"[ERROR] Training error: {e}")
             raise e
 
     def predict(self, X_test):
         try:
             return self.model.predict(X_test)
         except Exception as e:
-            print(f"[ERROR] Błąd podczas predykcji: {e}")
+            print(f"[ERROR] Prediction error: {e}")
             raise e
 
     @abstractmethod
-    def evaluate(self): #wymagana metoda w klasach bazowych, w każdej inaczej implementowana
+    def evaluate(self):
         pass
 
     @abstractmethod
-    def _draw_plot_content(self, plt): #specyficzna metoda rysowania dla każdego modelu
+    def _draw_plot_content(self, plt): #specifiic way to draw every plot
         pass
 
-    def plot(self, filename: str = "model_plot.png"): #metoda zawiera wspólną logikę wszystkich wykresów
+    def plot(self, filename: str = "model_plot.png"): #common logic for every plot
         try:
-            os.makedirs('outputs', exist_ok=True) #sprawdzanie folderu outputs
-            plt.figure(figsize=(10, 6)) #wspólna wielkość
+            os.makedirs('outputs', exist_ok=True) #checking outputs directory
+            plt.figure(figsize=(10, 6)) #common size
 
-            #wywołanie metody specyficznej
+            #specific metod for every plot
             self._draw_plot_content(plt)
 
-            #wspólne elementy stylu
+            #common style elements
             plt.grid(True, linestyle='--', alpha=0.7)
 
             #zapis i czyszczenie
             plot_path = os.path.join('outputs', filename)
             plt.savefig(plot_path)
             plt.close()
-            print(f"Wykres modelu zapisany: {plot_path}")
+            print(f"Model plot saved: {plot_path}")
 
         except ValueError as e:
-            # Wychwycenie błędów walidacji (np. zła liczba cech) rzuconych z _draw_plot_content
-            print(f"Błąd walidacji danych do wykresu: {e}")
-            plt.close()  #upewnienie się, że figura jest zamknięta
+            # catching validation errors
+            print(f"Plot data validation error: {e}")
+            plt.close()  #closing figure
+            raise e
         except Exception as e:
-            print(f"Błąd podczas generowania wykresu: {e}")
+            print(f"Error generating plot: {e}")
             plt.close()
             raise e

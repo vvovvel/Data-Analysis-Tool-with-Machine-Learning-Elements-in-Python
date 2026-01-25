@@ -8,82 +8,84 @@ def _summary_stats(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
 
     for col in columns:
         if col not in df.columns:
-            raise InvalidDataError(f"Kolumna '{col}' nie istnieje w DataFrame.")
+            raise InvalidDataError(f"Column '{col}' does not exist in the DataFrame.")
         if not pd.api.types.is_numeric_dtype(df[col]):
-            raise InvalidDataError(f"Kolumna '{col}' nie zawiera wartości liczbowych.")
+            raise InvalidDataError(f"Column '{col}' is not numeric.")
 
     stats_df = df[columns].describe().T
 
+    # Drop unnecessary columns to keep the summary concise
     stats_df = stats_df.drop(columns=['count', '25%', '50%', '75%'])
 
     return stats_df
 
-#FUNKCJA UŻYTECZNA DO KOLEJNEJ METODY
-# pd.qcut() – dzieli kolumnę numeryczną na "kwantyle" (grupy o podobnej liczbie obserwacji)
-# Składnia podstawowa:
+# HELPER FUNCTION FOR THE NEXT METHOD
+# pd.qcut() – Discretize variable into equal-sized buckets based on sample quantiles.
+# Basic Syntax:
 # pd.qcut(x, q, labels=None, duplicates='raise')
 #
-# Argumenty:
-# x        – kolumna/Series do podziału
-# q        – liczba kwantyli (np. 4 → podział na ćwiartki) lub lista wartości kwantyli [0, 0.25, 0.5, 0.75, 1.0]
-# labels   – etykiety dla grup; jeśli None → pandas tworzy Interval
-# duplicates – 'raise' (domyślnie) → błąd przy powtarzających się granicach,
-#              'drop' → usuwa duplikaty, żeby uniknąć błędu
+# Arguments:
+# x        – Input array or Series to be cut.
+# q        – Number of quantiles (e.g., 4 for quartiles) or list of quantiles [0, 0.25, 0.5, 0.75, 1.0].
+# labels   – Labels for the resulting bins. If None, returns the interval.
+# duplicates – 'raise' (default) -> error on non-unique bin edges,
+#              'drop' -> drop non-unique bin edges to avoid errors.
 #
-# Przykład:
-# df['AgeGroup'] = pd.qcut(df['Age'], q=4)  # 4 grupy z równą liczbą osób
+# Example:
+# df['AgeGroup'] = pd.qcut(df['Age'], q=4)  # 4 groups with equal number of observations.
 
 
 def _grouped_mean_summary(
-    df: pd.DataFrame,  #wkładamy data frame
-    group_col: str,    #ze względu na co chcemy grupować np ze względu na wiek, grupy wiekowe 25-30, 30-40 itd
-    target_col: str,    #co chcemy mieć w tym grupowaniu np długość snu dla każdej grupy wiekowej, ilość kroków itd
-    n_bins: int = 4     #wpisujemy sobie ilość grup, którą chcemy, ale musi być z przedziału <1,10>
+    df: pd.DataFrame,  # Input DataFrame
+    group_col: str,    # Column to group by (e.g., Age to create age groups)
+    target_col: str,   # Target column for calculation (e.g., Mean Sleep Duration)
+    n_bins: int = 4     # Desired number of groups, must be within range <1,10>
 ) -> pd.DataFrame:
 
     if not isinstance(n_bins, int) or not (1 <= n_bins <= 10):
-        raise InvalidDataError("n_bins musi być liczbą całkowitą od 1 do 10.") #liczba grup będzie wpisywana ręcznie ale musi być intem z <1,10>
+        raise InvalidDataError("n_bins must be an integer between 1 and 10.") # Manual input must be an int in <1,10>
 
     for col in [group_col, target_col]:
         if col not in df.columns:
-            raise InvalidDataError(f"Brak kolumny '{col}' w DataFrame.")
+            raise InvalidDataError(f"Missing column '{col}' from DataFrame.")
         if not pd.api.types.is_numeric_dtype(df[col]):
-            raise InvalidDataError(f"Kolumna '{col}' nie zawiera wartości liczbowych.")     #obie kolumny oczywiście muszą być w df
+            raise InvalidDataError(f"Column '{col}' is not numeric.")     # Both columns must be numeric
 
     df_copy = df.copy()
 
-    df_copy['Group'] = pd.qcut(df_copy[group_col], q=n_bins, duplicates='drop')  #dzieli na cztery równe grupy, każda zawiera tyle samo osób
-    #i nadaje każdemuy numerek
+    # Divide into n_bins equal groups, each containing a similar number of observations
+    df_copy['Group'] = pd.qcut(df_copy[group_col], q=n_bins, duplicates='drop')
 
-    result_series = (df_copy.groupby('Group')[target_col].mean()) #srednia dla każdej grupy z tych czterech, zwraca kolumnę
-    result_df = result_series.to_frame() #zwraca dataframe
-    result_df.rename(columns={target_col: f"Średnia {target_col}"}, inplace=True) #zmiana nazw
+    # Calculate mean for each of the groups
+    result_series = (df_copy.groupby('Group')[target_col].mean()) # Returns a Series
+    result_df = result_series.to_frame() # Convert to DataFrame
+    result_df.rename(columns={target_col: f"Mean {target_col}"}, inplace=True) # Rename for clarity
 
     return result_df
 
 def _corr_matrix(df: pd.DataFrame, cols: list[str] | None = None) -> pd.DataFrame:
 
-    #jeśli argument cols nie został podany, liczmymy dla wszystkich kolumn liczbowych
+    # If cols argument is not provided, calculate for all numeric columns
     if cols is None:
         cols = df.columns.tolist()
 
-    # sprawdzenie poprawności kolumn
+    # Validate columns
     for col in cols:
         if col not in df.columns:
-            raise InvalidDataError(f"Brak kolumny '{col}' w DataFrame.")
+            raise InvalidDataError(f"Missing column '{col}' from DataFrame.")
         if not pd.api.types.is_numeric_dtype(df[col]):
-            raise InvalidDataError(f"Kolumna '{col}' nie zawiera wartości liczbowych.")
+            raise InvalidDataError(f"Column '{col}' is not numeric.")
 
-    # obliczenie macierzy korelacji
+    # Calculate the correlation matrix
     corr = df[cols].corr()
 
     return corr
 
 @measure_time
 def run_summary_stats(df, stats_columns):
-    with TimeLoggerContext("STATYSTYKI OPISOWE"):
+    with TimeLoggerContext("DESCRIPTIVE STATISTICS"):
 
-        print("\n=== STATYSTYKI: Podstawowe Statystyki Opisowe ===")
+        print("\n=== STATISTICS: Basic Descriptive Statistics ===")
 
         summary_stats_result = _summary_stats(df, stats_columns)
 
@@ -92,9 +94,9 @@ def run_summary_stats(df, stats_columns):
 
 @measure_time
 def run_grouped_mean(df, group_col, target_col):
-    with TimeLoggerContext("STATYSTYKI: Średnia Grupowa"):
+    with TimeLoggerContext("STATISTICS: Grouped Mean"):
 
-        print(f"\n=== STATYSTYKI: Średnia {target_col} wg {group_col} ===")
+        print(f"\n=== STATISTICS: Mean {target_col} by {group_col} ===")
 
         grouped_mean_result = _grouped_mean_summary(df, group_col, target_col)
 
@@ -103,8 +105,8 @@ def run_grouped_mean(df, group_col, target_col):
 
 @measure_time
 def run_correlation_matrix(df, stats_columns):
-    with TimeLoggerContext("STATYSTYKI: Macierz Korelacji"):
-        print("\n=== STATYSTYKI: Macierz Korelacji ===")
+    with TimeLoggerContext("STATISTICS: Correlation Matrix"):
+        print("\n=== STATISTICS: Correlation Matrix ===")
 
         corr_matrix_result = _corr_matrix(df, stats_columns)
 

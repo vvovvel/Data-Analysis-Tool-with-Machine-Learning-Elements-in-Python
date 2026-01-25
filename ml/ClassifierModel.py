@@ -6,11 +6,10 @@ from ml.DataPreparer import DataPreparer
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
-#nazwa KNN -> K-nearest-neighbors -> model znajduje K sąsiadów i jest przypisywany do klasy, która jest najczęściej reprezentowana wśród nich
-
-#w tym modelu target_col musi zawierać zmienne kategoryczne czyli np occupation, bmi category, sleep disorder
-#inicjujemy model poprzez wpisanie df, target_col oraz feature_cols które w domyśle są wszystkimi kolumnami prócz targetu oraz id
-#następnie możemy dostać się do accuracy czyli do proporcji poprawnych dopasowań do wszystkich dopasowań
+# KNN stands for K-Nearest Neighbors -> the model finds the K closest neighbors and assigns the class most frequently represented among them.
+# In this model, target_col must contain categorical variables, e.g., occupation, BMI category, or sleep disorder.
+# The model is initialized by providing the DataFrame, target_col, and feature_cols (which defaults to all columns except the target and ID).
+# We can then access the accuracy, which is the ratio of correct predictions to the total number of samples.
 
 class ClassifierModel(BaseModel):
 
@@ -18,119 +17,117 @@ class ClassifierModel(BaseModel):
         self.id_col = id_col
         self.X_test = None
         self.y_test = None
-        self.n_neighbors = None
         self.feature_cols = None
         self.target_col = None
 
-        super().__init__(KNeighborsClassifier(n_neighbors=n_neighbors)) #model importowany z sklearn
+        super().__init__(KNeighborsClassifier(n_neighbors=n_neighbors)) # Model imported from sklearn
         self.n_neighbors = n_neighbors
         self.target_col = target_col
 
         if df is not None and target_col is not None:
             preparer = DataPreparer(df, id_col)
 
-            # Używamy preparer.prepare_classification (który skaluje dane)
+            # Using preparer.prepare_classification (which scales the data)
             X, y, X_train, self.X_test, y_train, self.y_test = preparer.prepare_classification(
                 target_col=target_col,
                 feature_cols=feature_cols,
                 test_size=test_size
             )
 
-            # Trenujemy model
+            # Training the model
             self.train(X_train, y_train)
             self.feature_cols = X_train.columns.tolist()
 
     def evaluate(self):
         try:
             if self.X_test is None or self.y_test is None:
-                raise ValueError("Model nie został poprawnie zainicjowany z danymi.")
+                raise ValueError("Model was not properly initialized with data.")
 
             y_pred = self.predict(self.X_test)
             accuracy = accuracy_score(self.y_test, y_pred)
             return accuracy
 
         except Exception as e:
-            return {"Error": f"Nie można policzyć Accuracy: {e}"}
+            return {"Error": f"Cannot calculate Accuracy: {e}"}
 
-    #specyficzne rysowanie wykresu
+    #specific plot implementation
 
     def _draw_plot_content(self, plt):
 
         if self.X_test is None or self.y_test is None:
-            raise ValueError("Model musi zostać zainicjowany.")
+            raise ValueError("Model must be initialized.")
 
         if self.feature_cols is None:
-            raise ValueError("Brak nazw cech (feature_cols).")
+            raise ValueError("Missing feature names (feature_cols).")
 
         if len(self.feature_cols) != 1:
-            raise ValueError(f"Wizualizacja wymaga dokładnie 1 cechy. Znaleziono: {len(self.feature_cols)}.")
+            raise ValueError(f"Visualization requires exactly 1 feature. Found: {len(self.feature_cols)}.")
 
-        # 2. Pobieranie nazw
+        # Extracting names
         feature_name = self.feature_cols[0]
         target_name = self.target_col
 
-        # 3. Przygotowanie danych osi
-        # Wybór JEDYNEJ kolumny z X_test i konwersja do wektora 1D
+        # Preparing axis data
+        # Selecting the ONLY column from X_test and converting to a 1D vector
         x_data = self.X_test[feature_name].values.flatten()
         y_test_data = np.array(self.y_test).flatten()
 
-        # 4. Obliczenie predykcji
+        # Calculating predictions
         y_pred = np.array(self.predict(self.X_test)).flatten()
 
-        # Mapowanie klas (np. ['low','medium','high'] -> [0,1,2])
+        # Class mapping (e.g., ['low','medium','high'] -> [0,1,2])
         classes = np.unique(
-            np.concatenate([y_test_data, y_pred]))  # połączenie danych testowych i predykowanych w unikalny set
+            np.concatenate([y_test_data, y_pred]))  # Combine test and predicted data into a unique set
         class_to_num = {cls: i for i, cls in enumerate(
-            classes)}  # słownik -> dla każdej unikalnej wartości z classes nadaje jakąś liczbę naturalną
+            classes)}  # Dictionary -> assigns a natural number to each unique value in classes
         num_to_class = {i: cls for cls, i in
-                        class_to_num.items()}  # odwrotne mapowanie: każda liczba daje wartość np string
+                        class_to_num.items()}  # Inverse mapping: each number maps back to the value (e.g., string)
 
-        # --- Rysowanie ---
+        # Plotting
 
-        # przyporządkowanie kolorów do klas
-        n_unique_classes = len(classes)  # ilość unikalnych klas
-        cmap = plt.get_cmap('Dark2', n_unique_classes)  # pobranie dokładnie tylu kolorów ile trzeba
-        class_to_color = {cls: cmap(i) for i, cls in enumerate(classes)}  # przypisanie koloru do klasy
+        # Assigning colors to classes
+        n_unique_classes = len(classes)  # Number of unique classes
+        cmap = plt.get_cmap('Dark2', n_unique_classes)  # Get exactly as many colors as needed
+        class_to_color = {cls: cmap(i) for i, cls in enumerate(classes)}  # Assign color to each class
 
-        # Rysujemy prawdziwe etykiety (filled)
+        # Plot true labels (filled)
         for cls in classes:
-            mask = (y_test_data == cls)  # maska, która tworzy dla każdej klasy takie coś
-            # [low, high, low, medium] -> [1,0,1,0] dla low. w skrocie -> true gdy ta klasa, false gdy nie ta klasa
+            mask = (y_test_data == cls)  # Mask creating a boolean array for each class... [low, high, low, medium] -> [True, False, True, False] for 'low'.
+            # Basically -> True if it's this class, False otherwise BOOLEAN INDEXING
             plt.scatter(x_data[mask], np.full(mask.sum(), class_to_num[cls]),
-                        # wybieramy tylko wartości dla punktów z tej klasy(argumenty).
-                        # następnie tworzymy wartości y (tablica tak duża ile mamy punktów), wszystkie mają wysokość class_to_num bo taką mają wartość zamienione
-                        # na liczby naturalne igreki
-                        color=class_to_color[cls],  # wypełnone
-                        alpha=0.6,  # półprzezroczyste
+                        # Select only values for points belonging to this class (arguments).
+                        # Create y-values (array matching the point count), all set to the height defined by class_to_num (categorical values mapped to integers).
+                        color=class_to_color[cls],  # filled
+                        alpha=0.6,  # semi-transparent
                         label=f'True: {cls}')
 
-        # Rysujemy predykcje
+        # Plot predictions
         for cls in classes:
             mask_pred = (y_pred == cls)
             if np.any(mask_pred):
                 plt.scatter(x_data[mask_pred], np.full(mask_pred.sum(), class_to_num[cls]),
-                            facecolors='none',  # puste w środku
-                            edgecolors=[class_to_color[cls]],  # mają obwódki
-                            linewidths=1.5,  # grubość krawędzi
-                            s=80,  # wielkość punktu
-                            alpha=0.9,  # prawie nie są przezroczyste
+                            facecolors='none',  # hollow
+                            edgecolors=[class_to_color[cls]],  # with outlines
+                            linewidths=1.5,  # edge width
+                            s=80,  # point size
+                            alpha=0.9,  # almost opaque
                             label=f'Pred: {cls}')
 
-        # Ustawiamy oś Y na wartości kategoryczne (czytelne)
+        # Set Y-axis to categorical values (readable)
         yticks = list(class_to_num.values())
         yticklabels = [num_to_class[i] for i in yticks]
-        plt.yticks(yticks, yticklabels)  # pozycje etykiet są na wysokości takiej, jak wcześniej zostały ustalone w class_to_num
+        plt.yticks(yticks, yticklabels)  # Label positions match the heights previously defined in class_to_num
 
-        plt.title(f'Wizualizacja klasyfikacji: {target_name} vs {feature_name}', fontsize=14)
+        plt.title(f'Classification Visualization: {target_name} vs {feature_name}', fontsize=14)
         plt.xlabel(feature_name, fontsize=12)
         plt.ylabel(target_name, fontsize=12)
 
-        # Usuwamy duplikaty legendy (przy pierwszym wystąpieniu)
+        # Remove duplicate legend entries (keep first occurrence)
         handles, labels = plt.gca().get_legend_handles_labels()
         unique = dict(zip(labels, handles))
         plt.legend(unique.values(), unique.keys(), loc='best', fontsize='small')
 
-    # wywołanie metody bazowej, która zawiera w sobie powtarzające się u wszystkich modeli fragmetny kodu
+    # Call the base method containing common code logic for all models
 
     def plot(self, filename: str = "classifier_plot.png"):
         super().plot(filename=filename)

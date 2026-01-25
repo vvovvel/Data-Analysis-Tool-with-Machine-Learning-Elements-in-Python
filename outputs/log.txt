@@ -1,0 +1,42 @@
+[START] LOADING AND PREPROCESSING - Sun Jan 25 13:16:10 2026
+[END] LOADING AND PREPROCESSING - Sun Jan 25 13:16:10 2026 | Duration: 0.0158s
+--------------------------------------------------
+[START] DESCRIPTIVE STATISTICS - Sun Jan 25 13:16:10 2026
+[END] DESCRIPTIVE STATISTICS - Sun Jan 25 13:16:10 2026 | Duration: 0.0073s
+--------------------------------------------------
+[START] STATISTICS: Grouped Mean - Sun Jan 25 13:16:10 2026
+[END] STATISTICS: Grouped Mean - Sun Jan 25 13:16:10 2026 | Duration: 0.0041s
+--------------------------------------------------
+[START] STATISTICS: Correlation Matrix - Sun Jan 25 13:16:10 2026
+[END] STATISTICS: Correlation Matrix - Sun Jan 25 13:16:10 2026 | Duration: 0.0028s
+--------------------------------------------------
+[START] MODEL: LINEAR REGRESSION - Sun Jan 25 13:16:11 2026
+[END] MODEL: LINEAR REGRESSION - Sun Jan 25 13:16:11 2026 | Duration: 0.0044s
+--------------------------------------------------
+[START] MODEL: KNN CLASSIFICATION - Sun Jan 25 13:16:11 2026
+[END] MODEL: KNN CLASSIFICATION - Sun Jan 25 13:16:11 2026 | Duration: 0.0078s
+--------------------------------------------------
+[START] MODEL: KMEANS CLUSTERING - Sun Jan 25 13:16:11 2026
+[END] MODEL: KMEANS CLUSTERING - Sun Jan 25 13:16:14 2026 | Duration: 3.2303s
+--------------------------------------------------
+[START] LOADING AND PREPROCESSING - Sun Jan 25 13:24:40 2026
+[END] LOADING AND PREPROCESSING - Sun Jan 25 13:24:40 2026 | Duration: 0.0033s
+--------------------------------------------------
+[START] DESCRIPTIVE STATISTICS - Sun Jan 25 13:24:40 2026
+[END] DESCRIPTIVE STATISTICS - Sun Jan 25 13:24:40 2026 | Duration: 0.0076s
+--------------------------------------------------
+[START] STATISTICS: Grouped Mean - Sun Jan 25 13:24:40 2026
+[END] STATISTICS: Grouped Mean - Sun Jan 25 13:24:40 2026 | Duration: 0.0043s
+--------------------------------------------------
+[START] STATISTICS: Correlation Matrix - Sun Jan 25 13:24:40 2026
+[END] STATISTICS: Correlation Matrix - Sun Jan 25 13:24:40 2026 | Duration: 0.0081s
+--------------------------------------------------
+[START] MODEL: LINEAR REGRESSION - Sun Jan 25 13:24:40 2026
+[END] MODEL: LINEAR REGRESSION - Sun Jan 25 13:24:40 2026 | Duration: 0.0042s
+--------------------------------------------------
+[START] MODEL: KNN CLASSIFICATION - Sun Jan 25 13:24:40 2026
+[END] MODEL: KNN CLASSIFICATION - Sun Jan 25 13:24:40 2026 | Duration: 0.0072s
+--------------------------------------------------
+[START] MODEL: KMEANS CLUSTERING - Sun Jan 25 13:24:40 2026
+[END] MODEL: KMEANS CLUSTERING - Sun Jan 25 13:24:42 2026 | Duration: 1.7428s
+--------------------------------------------------

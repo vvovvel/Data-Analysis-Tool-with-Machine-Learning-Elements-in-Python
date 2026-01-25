@@ -58,7 +58,7 @@ The project is based on the separation of concerns, where each domain has its ow
 ***
 ## 📁 Detailed directory structure
 ```
-projekt/
+project/
 ├── analysis/
 │ ├── plots.py              # Visualization functions (scatter, boxplot, histogram)
 │ └── statistics.py         # Functions for calculating statistics
@@ -96,55 +96,57 @@ Raw console output after a successful run of the test_pipeline_exams() pipeline:
 collecting ... collected 1 item
 
 main.py::test_pipeline_exams PASSED                     [100%]
-=== STATYSTYKI: Podstawowe Statystyki Opisowe ===
-                mean    std    min    max
+
+=== STATISTICS: Basic Descriptive Statistics ===
+                 mean    std    min    max
 hours_studied    6.33   3.23   1.00  12.00
 sleep_hours      6.62   1.50   4.00   9.00
 previous_scores 66.80  15.66  40.00  95.00
 exam_score      33.95   6.79  17.10  51.30
-|--- Czas wykonania 'run_summary_stats': 0.0064 s
+|--- Execution time of 'run_summary_stats': 0.0077 s
 
-=== STATYSTYKI: Średnia exam_score wg hours_studied ===
-              Średnia exam_score
+=== STATISTICS: Mean exam_score by hours_studied ===
+                Mean exam_score
 Group                              
 (0.999, 3.5]               27.93
 (3.5, 6.15]                30.64
 (6.15, 9.0]                36.10
 (9.0, 12.0]                41.41
-|--- Czas wykonania 'run_grouped_mean': 0.0037 s
+|--- Execution time of 'run_grouped_mean': 0.0045 s
 
-=== STATYSTYKI: Macierz Korelacji ===
+=== STATISTICS: Correlation Matrix ===
                   hours_studied  sleep_hours  previous_scores  exam_score
 hours_studied              1.00         0.08             0.07        0.78
 sleep_hours                0.08         1.00            -0.19        0.19
 previous_scores            0.07        -0.19             1.00        0.43
 exam_score                 0.78         0.19             0.43        1.00
-|--- Czas wykonania 'run_correlation_matrix': 0.0057 s
-Wykres zapisany: outputs\correlation_matrix.png
-Wykres zapisany: outputs\scatter_hours_studied_exam_score.png
-Wykres zapisany: outputs\histogram_exam_score.png
-Wykres zapisany: outputs\boxplot_exam_grade_hours_studied.png
+|--- Execution time of 'run_correlation_matrix': 0.0033 s
 
-=== REGRESJA LINIOWA ===
+Plot saved: outputs\correlation_matrix.png
+Plot saved: outputs\scatter_hours_studied_exam_score.png
+Plot saved: outputs\histogram_exam_score.png
+Plot saved: outputs\boxplot_exam_grade_hours_studied.png
+
+=== LINEAR REGRESSION ===
 MSE (test_size 0.20): 19.16
 
-Analiza Wpływu Zmiennych
-Analiza wpływu na exam_score:
-- hours_studied: Wpływ: **Dodatni**, Współczynnik: 1.61
-|--- Czas wykonania 'run_regression': 0.0044 s
-Wykres modelu zapisany: outputs\linear_students
+ Feature Impact Analysis
+Impact analysis for exam_score:
+- hours_studied: Impact: **Positive**, Coefficient: 1.61
+|--- Execution time of 'run_regression': 0.0048 s
+Model plot saved: outputs\linear_students
 
-=== KLASYFIKACJA KNN ===
-Dokładność (n_neighbors=3): 0.60
-|--- Czas wykonania 'run_classification': 0.0089 s
-Wykres modelu zapisany: outputs\knn_students
+=== KNN CLASSIFICATION ===
+Accuracy (n_neighbors=3): 0.60
+|--- Execution time of 'run_classification': 0.0083 s
+Model plot saved: outputs\knn_students
 
-=== KLASTERYZACJA KMeans ===
-Ocena jakości klastrów: {'Silhouette Score': 0.3921}
-|--- Czas wykonania 'run_clustering': 2.9901 s
-Wykres modelu zapisany: outputs\cluster_students
+=== KMEANS CLUSTERING ===
+Cluster quality score: {'Silhouette Score': 0.3921}
+|--- Execution time of 'run_clustering': 3.2308 s
+Model plot saved: outputs\cluster_students
 
-======================== 1 passed, 7 warnings in 4.92s ========================
+======================== 1 passed in 4.92s ========================
 ```
 
 Below are all 7 generated plots. All PNG files are available in the `readme_assets/` folder.
@@ -196,28 +198,27 @@ Below are all 7 generated plots. All PNG files are available in the `readme_asse
 The execution time for each analysis is recorded in the `log.txt` file:
 
 ```
-[START] ŁADOWANIE i PREPROCESSING - Tue Dec  2 13:52:49 2025
-[END] ŁADOWANIE i PREPROCESSING - Tue Dec  2 13:52:49 2025 | Trwanie: 0.0034s
+[START] LOADING AND PREPROCESSING - Sun Jan 25 13:16:10 2026
+[END] LOADING AND PREPROCESSING - Sun Jan 25 13:16:10 2026 | Duration: 0.0158s
 --------------------------------------------------
-[START] STATYSTYKI OPISOWE - Tue Dec  2 13:52:49 2025
-[END] STATYSTYKI OPISOWE - Tue Dec  2 13:52:49 2025 | Trwanie: 0.0061s
+[START] DESCRIPTIVE STATISTICS - Sun Jan 25 13:16:10 2026
+[END] DESCRIPTIVE STATISTICS - Sun Jan 25 13:16:10 2026 | Duration: 0.0073s
 --------------------------------------------------
-[START] STATYSTYKI: Średnia Grupowa - Tue Dec  2 13:52:49 2025
-[END] STATYSTYKI: Średnia Grupowa - Tue Dec  2 13:52:49 2025 | Trwanie: 0.0033s
+[START] STATISTICS: Grouped Mean - Sun Jan 25 13:16:10 2026
+[END] STATISTICS: Grouped Mean - Sun Jan 25 13:16:10 2026 | Duration: 0.0041s
 --------------------------------------------------
-[START] STATYSTYKI: Macierz Korelacji - Tue Dec  2 13:52:49 2025
-[END] STATYSTYKI: Macierz Korelacji - Tue Dec  2 13:52:49 2025 | Trwanie: 0.0053s
+[START] STATISTICS: Correlation Matrix - Sun Jan 25 13:16:10 2026
+[END] STATISTICS: Correlation Matrix - Sun Jan 25 13:16:10 2026 | Duration: 0.0028s
 --------------------------------------------------
-[START] MODEL: REGRESJA LINIOWA - Tue Dec  2 13:52:50 2025
-[END] MODEL: REGRESJA LINIOWA - Tue Dec  2 13:52:50 2025 | Trwanie: 0.0038s
+[START] MODEL: LINEAR REGRESSION - Sun Jan 25 13:16:11 2026
+[END] MODEL: LINEAR REGRESSION - Sun Jan 25 13:16:11 2026 | Duration: 0.0044s
 --------------------------------------------------
-[START] MODEL: KLASYFIKACJA KNN - Tue Dec  2 13:52:50 2025
-[END] MODEL: KLASYFIKACJA KNN - Tue Dec  2 13:52:50 2025 | Trwanie: 0.0063s
+[START] MODEL: KNN CLASSIFICATION - Sun Jan 25 13:16:11 2026
+[END] MODEL: KNN CLASSIFICATION - Sun Jan 25 13:16:11 2026 | Duration: 0.0078s
 --------------------------------------------------
-[START] MODEL: KLASTERYZACJA KMeans - Tue Dec  2 13:52:50 2025
-[END] MODEL: KLASTERYZACJA KMeans - Tue Dec  2 13:52:51 2025 | Trwanie: 1.5262s
+[START] MODEL: KMEANS CLUSTERING - Sun Jan 25 13:16:11 2026
+[END] MODEL: KMEANS CLUSTERING - Sun Jan 25 13:16:14 2026 | Duration: 3.2303s
 --------------------------------------------------
-
 ```
 ***
 ## 💻 How to use your own dataset?
@@ -240,7 +241,7 @@ In the case of this project, to run a pipeline on your own CSV file, you should:
 
 6. In `if __name__ == "__main__":`, replace `test_pipeline_sleep()` with, for example `test_pipeline_youtube()` (as shown in the example below).
 
-### Ważne uwagi:
+### Important Notes:
 * The tool is only capable of generating 2D plots; therefore, Linear Regression and the Classifier require exactly **one** feature and **one** target, while KMeans requires exactly **two** features.
 * Before `lin_model.plot()` is called or any attempt is made to generate any other ML model plot, the model **must be trained**.
 
@@ -281,9 +282,9 @@ Example modification:
    
     
         except InvalidDataError as e:
-            print(f"Błąd w danych (InvalidDataError): {e}")
+            print(f"Data error (InvalidDataError): {e}")
         except Exception as e:
-            print(f"Wystąpił nieoczekiwany błąd podczas działania programu: {e}")
+            print(f"An unexpected error occurred during program execution: {e}")
             
     if __name__ == "__main__":
         test_pipeline_youtube() # you must change the pipeline name
