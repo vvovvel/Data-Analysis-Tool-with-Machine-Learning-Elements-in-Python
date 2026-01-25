@@ -1,20 +1,19 @@
-# Narzędzie do analizy danych z elementami uczenia maszynowego w Pythonie
+# Data Analysis Tool with Machine Learning elements in Python
 
-Projekt implementuje modularne i elastyczne narzędzie do analizy danych (Data Analysis Tool) wykorzystujące zaawansowane techniki programowania obiektowego (OOP) w Pythonie, ze szczególnym uwzględnieniem modelowania predykcyjnego z użyciem biblioteki Scikit-learn.
+The project implements a modular and flexible Data Analysis Tool utilizing advanced Object-Oriented Programming (OOP) techniques in Python, with a particular focus on predictive modeling using the Scikit-learn library.
+## 🎯 Project Goal
 
-## 🎯 Cel Projektu
-
-Głównym celem jest zademonstrowanie umiejętności w zakresie:
-* **Modularnej Dekompozycji** kodu na logiczne klasy i pakiety
-* **Programowania Obiektowego** (Dziedziczenie, Abstrakcja)
-* **Efektywnego Użycia** kluczowych bibliotek analitycznych (Pandas, Scikit-learn, Matplotlib)
-* **Obsługi Błędów** (własne wyjątki i walidacja danych)
+The main goal is to demonstrate skills in:
+* **Modular decomposition** of code into logical classes and packages
+* **Object-Oriented Programming** (Inheritance, Abstraction)
+* **Effective Use** of key analytical libraries (Pandas, Scikit-learn, Matplotlib)
+* **Error Handling** (custom exceptions and data validation)
 
 ***
 
-## ⚙️ Wymagania i Instalacja
+## ⚙️ Requirements and Installation
 
-Projekt wymaga środowiska **Python 3.9+** oraz następujących bibliotek:
+The project requires a **Python 3.9+** environment and the following libraries:
 
 * `pandas`
 * `scikit-learn`
@@ -22,76 +21,75 @@ Projekt wymaga środowiska **Python 3.9+** oraz następujących bibliotek:
 * `seaborn`
 * `numpy`
 
-### Instalacja
-1. Klonowanie repozytorium  
+### Installation
+1. Cloning the repository  
 `git clone https://github.com/vvovvel/Data-Analysis-Tool-with-Machine-Learning-Elements-in-Python.git`  
 `cd Data-Analysis-Tool-with-Machine-Learning-Elements-in-Python`
 
-2. Instalacja zależności   
+2. Installing dependencies  
 `pip install -r requirements.txt`
 
-3. Uruchomienie  
+3. Running the project  
 `python main.py`
 ***
 
-## 💾 Źródło Danych
+## 💾 Data Source
 
-Dane wykorzystane w projekcie pochodzą z platformy **Kaggle**.
+The data used in this project comes from the **Kaggle** platform .
 
 * **Student Exam Scores:** [https://www.kaggle.com/datasets/grandmaster07/student-exam-score-dataset-analysis](https://www.kaggle.com/datasets/grandmaster07/student-exam-score-dataset-analysis)
 * **Sleep Health and Lifestyle:** [https://www.kaggle.com/datasets/851c829b2a41e6dd0b5a60388cd4a2cfda2d54433450ed12141237416c8161bc](https://www.kaggle.com/datasets/851c829b2a41e6dd0b5a60388cd4a2cfda2d54433450ed12141237416c8161bc)
 
 ***
-## 📦 **Struktura Projektu i Opis Modułów**
+## 📦 **Project Structure and Module Descriptions**
 
-Projekt opiera się na separacji obowiązków, gdzie każda domena ma swój własny pakiet.
+The project is based on the separation of concerns, where each domain has its own package.
 
-| Pakiet / Moduł | Główna Odpowiedzialność                                                                                        |
+| Package / Module | Main Responsibility                                                                                        |
 | :--- |:---------------------------------------------------------------------------------------------------------------|
-| **`main.py`** | Sterowanie pipeline'em, wybór danych do analizy, obsługa błędów.                                               |
-| **`data/`** | Ładowanie i walidacja danych, uzupełnianie wartości NA.                                                        |
-| **`analysis/`** | Obliczenia statystyczne oraz wizualizacja przy pomocy wykresów scatter, histogram, boxplot.                    |
-| **`ml/`** | Klasy reprezentujące modele ML (klasa bazowa i dziedziczące) oraz przygotowywanie danych do ich implementacji. |
-| **`outputs/`** | Folder do zapisu wszystkich wygenerowanych wykresów i logów czasowych.                                         |
-| **`tests/`** | Testy jednostkowe statystyk i walidatora.                                                                      |
-| **`utils/`** | Context Manager logujący czas i decorator wypisujący czas działania funkcji.                                   |
+| **`main.py`** | Pipeline control, data selection for analysis, and error handling.                                               |
+| **`data/`** | Data loading and validation, filling missing values (NA).                                                        |
+| **`analysis/`** | Statistical calculations and visualization using scatter, histogram, and box plots.                    |
+| **`ml/`** | Classes representing ML models (base and inherited) and data preparation for their implementation. |
+| **`outputs/`** | Directory for saving all generated plots and time logs.                                         |
+| **`tests/`** | Unit tests for statistics and the validator.                                                                      |
+| **`utils/`** | Context Manager for time logging and a decorator for printing function execution time.                                   |
 
 ***
-## 📁 Szczegółowa struktura katalogów 
+## 📁 Detailed directory structure
 ```
 projekt/
 ├── analysis/
-│ ├── plots.py              # Funkcje wizualizacji (scatter, boxplot, histogram)
-│ └── statistics.py         # Funkcje obliczające statystyki
+│ ├── plots.py              # Visualization functions (scatter, boxplot, histogram)
+│ └── statistics.py         # Functions for calculating statistics
 ├── data/
-│ ├── exceptions.py                                     # Klasa InvalidDataError
-│ ├── loading_and_prep.py                               # Praca z danymi 
-│ ├── Sleep_health_and_lifestyle_dataset.csv            #przykładowy dataset nr 1
-│ └── student_exam_scores.csv                           #przykładowy dataset nr 2
+│ ├── exceptions.py                                     # InvalidDataError class
+│ ├── loading_and_prep.py                               # Data processing
+│ ├── Sleep_health_and_lifestyle_dataset.csv            # Sample dataset #1
+│ └── student_exam_scores.csv                           # Sample dataset #2
 ├── ml/
-│ ├── BaseModel.py          # Klasa abstarakcyjna zawierająca powielający się kod modeli
-│ ├── ClassifierModel.py    # Klasyfikacja KNN
-│ ├── ClusteringModel.py    # Klasteryzacja KMeans
-│ ├── DataPreparer.py       # Preprocessing dla ML (skalowanie, One-Hot Encoding)
-│ ├── ModelRunner.py        # Factory/Strategy, użycie @measure_time
-│ └── RegressionModel.py    # Regresja Liniowa
+│ ├── BaseModel.py          # Abstract class containing reusable model code
+│ ├── ClassifierModel.py    # KNN Classification
+│ ├── ClusteringModel.py    # KMeans Clustering
+│ ├── DataPreparer.py       # ML Preprocessing (scaling, One-Hot Encoding)
+│ ├── ModelRunner.py        # Factory/Strategy, using @measure_time
+│ └── RegressionModel.py    # Linear Regression
 ├── outputs/                
 ├── tests/
-│ ├── test_statistics.py    # Testy jednostkowe funkcji statystycznych
-│ └── test_validator.py     # Testy jednostkowe walidacji danych 
+│ ├── test_statistics.py    # Unit tests for statistical functions
+│ └── test_validator.py     # Unit tests for data validation
 ├── utils/
-│ ├── context_manager.py    # Klasa TimeLoggerContext
-│ └── decorator.py          # Funkcja @measure_time
+│ ├── context_manager.py    # TimeLoggerContext class
+│ └── decorator.py          # @measure_time function
 ├── main.py
 └── README.md 
 ```
 ***
-## 📑 Wyniki Działania Pipeline'u (Przykłady)
+## 📑 Pipeline Results (Examples)
 
-Poniżej przedstawiono przykłady plików i wyników generowanych automatycznie przez program po uruchomieniu jednego z pipeline'ów zdefiniowanych
-w main.py (test_pipeline_exams()). Wszystkie pliki wynikowe są zapisywane w katalogu `outputs/`.
+Below are examples of files and results automatically generated by the program after running one of the pipelines defined in main.py (test_pipeline_exams()). All output files are saved in the `outputs/` directory.
 
-Surowe wyjście z konsoli po pomyślnym uruchomieniu pipeline'u test_pipeline_exams():
+Raw console output after a successful run of the test_pipeline_exams() pipeline:
 
 ```
 ============================= test session starts =============================
@@ -149,53 +147,53 @@ Wykres modelu zapisany: outputs\cluster_students
 ======================== 1 passed, 7 warnings in 4.92s ========================
 ```
 
-Poniżej przedstawiono wszystkie 7 wygenerowanych wykresów. Wszystkie pliki PNG są dostępne w folderze `readme_assets/`.
+Below are all 7 generated plots. All PNG files are available in the `readme_assets/` folder.
 
 <table style="width:100%;">
 
   <tr>
     <td style="width: 50%;">
-      <h4 align="center">1. Macierz Korelacji</h4>
+      <h4 align="center">1. Correlation Matrix</h4>
       <img src="readme_assets/correlation_matrix.png" alt="Macierz Korelacji (Heatmapa)" width="100%"/>
     </td>
 <td style="width: 50%;">
-      <h4 align="center">4. Wykres Punktowy (Scatter Plot)</h4>
+      <h4 align="center">4. Scatter Plot </h4>
       <img src="readme_assets/scatter_hours_studied_exam_score.png" alt="Wykres Punktowy Czas Nauki vs Wynik" width="100%"/>
     </td>
   </tr>
 
   <tr>
     <td style="width: 50%;">
-      <h4 align="center">3. Histogram (Rozkład Wyników)</h4>
+      <h4 align="center">3. Histogram (Score Distribution)</h4>
       <img src="readme_assets/histogram_exam_score.png" alt="Histogram Rozkładu Wyników" width="100%"/>
     </td>
     <td style="width: 50%;">
-      <h4 align="center">2. Boxplot (Ocena vs Godziny Nauki)</h4>
+      <h4 align="center">2. Boxplot (Score vs Study Hours)</h4>
       <img src="readme_assets/boxplot_exam_grade_hours_studied.png" alt="Boxplot Ocena vs Godziny Nauki" width="100%"/>
     </td>
   </tr>
 
   <tr>
     <td style="width: 50%;">
-      <h4 align="center">5. Regresja Liniowa</h4>
+      <h4 align="center">5. Linear Regression</h4>
       <img src="readme_assets/linear_students.png" alt="Wykres Regresji Liniowej" width="100%"/>
     </td>
     <td style="width: 50%;">
-      <h4 align="center">6. Klasyfikacja KNN</h4>
+      <h4 align="center">6. KNN Classification</h4>
       <img src="readme_assets/knn_students.png" alt="Wykres Klasyfikacji KNN" width="100%"/>
     </td>
   </tr>
 
   <tr>
     <td colspan="2" style="padding-top: 20px;">
-      <h4 align="center">7. Klasteryzacja KMeans</h4>
+      <h4 align="center">7. KMeans Clustering</h4>
       <img src="readme_assets/cluster_students.png" alt="Wykres Klasteryzacji K-Means" width="50%" style="display: block; margin: 0 auto;"/>
     </td>
   </tr>
 
 </table>
 
-W pliku `log.txt` zapisuje się czas wykonania każdej analizy:
+The execution time for each analysis is recorded in the `log.txt` file:
 
 ```
 [START] ŁADOWANIE i PREPROCESSING - Tue Dec  2 13:52:49 2025
@@ -222,36 +220,35 @@ W pliku `log.txt` zapisuje się czas wykonania każdej analizy:
 
 ```
 ***
-## 💻 Jak użyć własnego zbioru danych?
+## 💻 How to use your own dataset?
 
-W przypadku tego projektu, aby uruchomić pipeline na własnym pliku CSV, należy:  
+In the case of this project, to run a pipeline on your own CSV file, you should:  
 
-1. Umieścić plik CSV w katalogu data/
+1. Place the CSV file in the `data/` directory.
 
-2. skopiować jedną z gotowych funkcji pipeline (np. `test_pipeline_exams()` lub `test_pipeline_sleep()`) 
+2. Copy one of the existing pipeline functions (e.g. `test_pipeline_exams()` or `test_pipeline_sleep()`) 
 
-3. Wkleić ją zaraz za `test_pipeline_exams()`
+3. Paste it immediately after `test_pipeline_exams()`
 
-4. Podmienić w niej:
-   - ścieżkę do danych (`DATA_PATH`)  
-   - listy kolumn (`REQUIRED_COLUMNS`, `POSITIVE_COLUMNS`, `FILL_NA_COLS`)  
-   - kolumnę identyfikatora (`ID_COL`)  
-   - kolumny używane w statystykach, wykresach i modelach ML (`STATS_COLUMNS`, `SCATTER_X/Y`, `HISTOGRAM_X`, `BOXPLOT_X/Y`, `REGRESSION_FEATURES/TARGET`, `CLASSIFICATION_FEATURES/TARGET`, `CLUSTERING_FEATURES`)
+4. Replace the following within it:
+   - Data path (`DATA_PATH`)  
+   - Column lists (`REQUIRED_COLUMNS`, `POSITIVE_COLUMNS`, `FILL_NA_COLS`)  
+   - Identifier column (`ID_COL`)  
+   - Columns used in statistics, plots, and ML models (`STATS_COLUMNS`, `SCATTER_X/Y`, `HISTOGRAM_X`, `BOXPLOT_X/Y`, `REGRESSION_FEATURES/TARGET`, `CLASSIFICATION_FEATURES/TARGET`, `CLUSTERING_FEATURES`)
 
-5. Jeśli celem jest ograniczenie pipeline'u do np. jedynie wytrenowania i narysowania wykresu Regresji Liniowej, można pominąć odpowiednie kolumny oraz w bloku `try` zostawić jedynie `df`, `run_regression` oraz `lin_model.plot("wybrana_nazwa")`.
+5. If the goal is to limit the pipeline to, for example, only training and plotting a Linear Regression, you can omit the irrelevant columns and keep only `df`, `run_regression` and `lin_model.plot("wybrana_nazwa")` within `try` block.
 
-6. Podmienić w `if __name__ == "__main__":` zamiast `test_pipeline_sleep()` np. `test_pipeline_youtube()` (jak w poniższym przykładzie).
+6. In `if __name__ == "__main__":`, replace `test_pipeline_sleep()` with, for example `test_pipeline_youtube()` (as shown in the example below).
 
 ### Ważne uwagi:
-* tool jest w stanie narysować jedynie wykresy 2d, więc w Linear Regression oraz Classifier wymagana jest dokładnie jedna cecha i jeden target,
-a w KMeans dokładnie dwie cechy 
-* zanim zostanie wywołany `lin_model.plot()` bądź nastąpi próba wygenerowania jakiegokolwiek innego wykresu ML Modelu, **model musi zostać wytrenowany**.
+* The tool is only capable of generating 2D plots; therefore, Linear Regression and the Classifier require exactly **one** feature and **one** target, while KMeans requires exactly **two** features.
+* Before `lin_model.plot()` is called or any attempt is made to generate any other ML model plot, the model **must be trained**.
 
-Przykładowa zmiana:
+Example modification:
 
 ```Plaintext
 
-    #tu jest def test_pipeline_exams
+    #here is the def test_pipeline_exams
     
     def test_pipeline_youtube():
     
@@ -267,7 +264,7 @@ Przykładowa zmiana:
     
         FILL_NA_VALUE = 0
         
-        #można usunąć wszystkie kolumny niezwiązane z oczekiwanym wynikiem pipelinu
+        # you can remove all columns unrelated to the expected pipeline output
     
         REGRESSION_FEATURES = ['hashtag_count']
         REGRESSION_TARGET = 'views'
@@ -277,10 +274,10 @@ Przykładowa zmiana:
     
             df = perform_loading_and_prep(DATA_PATH, REQUIRED_COLUMNS, FILL_NA_COLS, FILL_NA_VALUE, POSITIVE_COLUMNS)
  
-            #można usunąć wszystkie zbędne dla nas wywyołania 
+            # you can remove all calls unnecessary for your purpose 
             
             lin_model = run_regression(df, ID_COL, REGRESSION_TARGET, REGRESSION_FEATURES)
-            lin_model.plot("linear_youtube") #zmiana nazwy wykresu 
+            lin_model.plot("linear_youtube") # change plot name 
    
     
         except InvalidDataError as e:
@@ -289,29 +286,31 @@ Przykładowa zmiana:
             print(f"Wystąpił nieoczekiwany błąd podczas działania programu: {e}")
             
     if __name__ == "__main__":
-    test_pipeline_youtube() #należy zmienić nazwę pipelinu 
+        test_pipeline_youtube() # you must change the pipeline name
 ```
 
-### Co projekt zrobi automatycznie?
+### What will the project do automatically?
 
-- ✔ **Walidacja danych** — sprawdzenie poprawności i kompletności  
-- ✔ **Czyszczenie** — usuwanie/uzupełnianie wartości brakujących  
-- ✔ **Skalowanie** — normalizacja cech numerycznych  
-- ✔ **Kodowanie One-Hot** — przygotowanie zmiennych kategorycznych  
-- ✔ **Analiza statystyczna** — opisowe metryki i wizualizacje  
-- ✔ **Modele ML** — regresja, klasyfikacja i klasteryzacja  
+- ✔ **Data Validation** — checking for correctness and completeness
+- ✔ **Cleaning** — removing or filling missing values 
+- ✔ **Scaling** — normalization of numerical features  
+- ✔ **One-Hot Encoding** — preparation of categorical variables 
+- ✔ **Statistical Analysis** — descriptive metrics and visualizations
+- ✔ **ML Models** — regression, classification, and clustering
 
-Po zakończeniu działania pipeline'u wszystkie wyniki oraz wykresy zostaną zapisane w katalogu `outputs/`.
+Upon completion of the pipeline, all results and plots will be saved in the `outputs/` directory.
 
 ***
 
-## ➡️ Dalszy rozwój i potencjalne ulepszenia
+## ➡️ Future Development and Potential Enhancements
 
-Projekt został zaprojektowany modularnie, aby umożliwić jego rozbudowę w następujących obszarach:
+The project has been designed modularly to allow for expansion in the following areas:
 
-* **Zwiększenie Odporności Pipeline'u (Soft Failures):** Modyfikacja runnerów ML (`ModelRunner.py`) w celu zapewnienia, że błąd podczas trenowania jednego modelu (np. klasyfikacji) nie przerywa całego procesu analizy, pozwalając na kontynuację kolejnych kroków (np. klasteryzacji).
-* **Dodanie Interfejsu Użytkownika (UI):** Zaimplementowanie prostej aplikacji dla użytkownika końcowego, która zastąpi obecne, statyczne wywołania funkcji w main.py bardziej dynamicznym wyborem analizy.
-* **Rozszerzenie Zestawu Modeli ML:** Dodanie kolejnych algorytmów uczenia maszynowego.
-* **Poprawa Wizualizacji (3D i Etykiety):**
-    * Implementacja wykresów 3D dla analizy cech (np. trzech cech naraz).
-    * Wizualizacja etykiet klastrów/klas na oryginalnych, nieskalowanych danych w celu lepszej interpretacji wyników.
+* **Improved User Communication.** 
+* **Increased Pipeline Resilience (Soft Failures):** Modifying the ML runners (`ModelRunner.py`) to ensure that an error during the training of one model (e.g., classification) does not terminate the entire analysis process, allowing subsequent steps (e.g., clustering) to continue.
+* **Adding a User Interface (UI):** Implementing a simple end-user application to replace the current static function calls in `main.py` with a more dynamic analysis selection.
+* **Expanding the ML Model Suite:** Adding further machine learning algorithms.
+* **Adding Missing Data Imputation Methods:** (e.g., using the mean, or inference based on other attributes).
+* **Visualization Enhancements (3D and Labels):**
+    * Implementing 3D plots for feature analysis (e.g., three features at once).
+    * Visualizing cluster/class labels on the original, unscaled data for better interpretation of results.
