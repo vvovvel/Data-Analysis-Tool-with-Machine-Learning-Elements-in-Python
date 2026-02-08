@@ -2,8 +2,9 @@
 
 The project implements a modular and flexible Data Analysis Tool utilizing advanced Object-Oriented Programming (OOP) techniques in Python, with a particular focus on predictive modeling using the Scikit-learn library.
 ## 🎯 Project Goal
+The primary objective is to provide a flexible and automated pipeline that enables rapid analysis of any dataset with minimal code modification. By leveraging modular OOP patterns, the tool allows users to easily customize parameters for regression, classification, or clustering to extract specific business insights without rewriting the core logic.
 
-The main goal is to demonstrate skills in:
+This projects demonstrates skills in:
 * **Modular decomposition** of code into logical classes and packages
 * **Object-Oriented Programming** (Inheritance, Abstraction)
 * **Effective Use** of key analytical libraries (Pandas, Scikit-learn, Matplotlib)
